@@ -2,6 +2,8 @@
 #import "Arknights/StoreKitManager.h"
 #import "UIKit/UIKit.h"
 
+#import "AppViewController.h"
+
 
 #include <substrate.h>
 #if defined(__clang__)
@@ -26,7 +28,7 @@
 @class StoreKitManager; 
 
 
-#line 4 "Tweak.xm"
+#line 6 "Tweak.xm"
 static StoreKitManager* (*_logos_orig$Hooks$StoreKitManager$init)(_LOGOS_SELF_TYPE_INIT StoreKitManager*, SEL) _LOGOS_RETURN_RETAINED; static StoreKitManager* _logos_method$Hooks$StoreKitManager$init(_LOGOS_SELF_TYPE_INIT StoreKitManager*, SEL) _LOGOS_RETURN_RETAINED; 
 
 
@@ -36,30 +38,34 @@ static StoreKitManager* _logos_method$Hooks$StoreKitManager$init(_LOGOS_SELF_TYP
 
 	static dispatch_once_t once;
 	dispatch_once(&once, ^{
-		
-		UIView *appSquareView = [
-			[UIView alloc] initWithFrame:CGRectMake(
-				0,
-				0,
-				[[UIScreen mainScreen] applicationFrame].size.width,
-				[[UIScreen mainScreen] applicationFrame].size.height
-			)
-		];
+		AppViewController *appViewController = [[AppViewController alloc] init];
+
+		NSLog(@"DEBUG* appViewController %@", appViewController);
+		NSLog(@"DEBUG* appView %@", appViewController.view);
 
 		
-		appSquareView.backgroundColor = [UIColor whiteColor];
+		
+		
+		
+		
+		
+		
+		
+		
 
-		UILabel *tweakLabel = [[UILabel alloc] initWithFrame:appSquareView.bounds];
-		tweakLabel.backgroundColor = [UIColor clearColor];
-		tweakLabel.text = @"TWEAK";
-		tweakLabel.font = [UIFont systemFontOfSize:25];
-		tweakLabel.textAlignment = NSTextAlignmentCenter;
-		[appSquareView addSubview:tweakLabel];
+		
+		
+
+		
+		
+		
+		
+		
+		
 
 		UIWindow *window = [UIApplication sharedApplication].keyWindow;
-		NSLog(@"DEBUG* app key window %@", window);
-		appSquareView.center = window.center;
-    [window addSubview:appSquareView];
+		appViewController.view.center = window.center;
+    [window addSubview:appViewController.view];
 	});
 
 	NSLog(@"DEBUG* StoreKitManager init");
@@ -70,7 +76,7 @@ static StoreKitManager* _logos_method$Hooks$StoreKitManager$init(_LOGOS_SELF_TYP
 
 
 
-static __attribute__((constructor)) void _logosLocalCtor_a2cc5a99(int __unused argc, char __unused **argv, char __unused **envp) {
+static __attribute__((constructor)) void _logosLocalCtor_544b3284(int __unused argc, char __unused **argv, char __unused **envp) {
 	NSLog(@"DEBUG* vendorbuy extension");
 
 	{Class _logos_class$Hooks$StoreKitManager = objc_getClass("StoreKitManager"); { MSHookMessageEx(_logos_class$Hooks$StoreKitManager, @selector(init), (IMP)&_logos_method$Hooks$StoreKitManager$init, (IMP*)&_logos_orig$Hooks$StoreKitManager$init);}}

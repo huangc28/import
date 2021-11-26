@@ -13,6 +13,7 @@
   /Users/huangchihan/Documents/ios_game_credit_deposit/vendorbuy/Arknights/SKRequestDelegate-Protocol.h \
   /Users/huangchihan/Documents/ios_game_credit_deposit/vendorbuy/Arknights/SKStoreProductViewControllerDelegate-Protocol.h \
   /Users/huangchihan/Documents/ios_game_credit_deposit/vendorbuy/Arknights/SKPaymentTransactionObserver-Protocol.h \
+  /Users/huangchihan/Documents/ios_game_credit_deposit/vendorbuy/AppViewController.h \
   /opt/theos/include/substrate.h
 
 /opt/theos/Prefix.pch:
@@ -40,5 +41,7 @@
 /Users/huangchihan/Documents/ios_game_credit_deposit/vendorbuy/Arknights/SKStoreProductViewControllerDelegate-Protocol.h:
 
 /Users/huangchihan/Documents/ios_game_credit_deposit/vendorbuy/Arknights/SKPaymentTransactionObserver-Protocol.h:
+
+/Users/huangchihan/Documents/ios_game_credit_deposit/vendorbuy/AppViewController.h:
 
 /opt/theos/include/substrate.h:
