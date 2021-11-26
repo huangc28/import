@@ -3,4 +3,5 @@
 @interface AppViewController : UIViewController {
 	IBOutlet UILabel *testLabel;
 }
+
 @end
