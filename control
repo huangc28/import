@@ -1,0 +1,9 @@
+Package: com.huangc28.vendorbuy
+Name: vendorbuy
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: 黃棋瀚
+Author: 黃棋瀚
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
