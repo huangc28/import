@@ -1,7 +1,10 @@
 #import "UIKit/UIKit.h"
 
+#import "SharedLibraries/HttpUtil.h"
+
 #import "AppTopViewController.h"
 #import "AuthModel.h"
+
 #include "Util.h"
 
 @interface AppTopViewController ()<UITextFieldDelegate>
@@ -100,6 +103,12 @@
 	NSString *password = authModel.password;
 
 	NSLog(@"DEBUG* handle submit %@ %@", username, password);
+
+	// Request remote API for jwt token. If auth success, retrieve inventory info.
+	[
+		[HttpUtil sharedInstance]
+			fetchInventory: @"somebundleid"
+	];
 }
 
 @end

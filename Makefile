@@ -7,7 +7,11 @@ include $(THEOS)/makefiles/common.mk
 TWEAK_NAME = vendorbuy
 
 vendorbuy_FRAMEWORKS = StoreKit UIKit
-vendorbuy_FILES = Tweak.xm AppViewController.m AppTopViewController.m AuthModel.m
+vendorbuy_FILES = Tweak.xm $\
+									AppViewController.m $\
+									AppTopViewController.m $\
+									AuthModel.m $\
+									../SharedLibraries/HttpUtil.m
 vendorbuy_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
