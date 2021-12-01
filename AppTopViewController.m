@@ -1,6 +1,7 @@
 #import "UIKit/UIKit.h"
 
 #import "SharedLibraries/HttpUtil.h"
+#import "SharedLibraries/Product.h"
 
 #import "AppTopViewController.h"
 #import "AuthModel.h"
@@ -72,7 +73,10 @@
 	[self.view addSubview: self.usernameTextField];
 	[self.view addSubview: self.passwordTextField];
 	[self.view addSubview: submitButton];
+
+
 }
+
 
 - (UIButton *) createSubmitButton {
 	UIButton *but = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -104,11 +108,6 @@
 
 	NSLog(@"DEBUG* handle submit %@ %@", username, password);
 
-	// Request remote API for jwt token. If auth success, retrieve inventory info.
-	[
-		[HttpUtil sharedInstance]
-			fetchInventory: @"somebundleid"
-	];
 }
 
 @end

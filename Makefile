@@ -11,7 +11,9 @@ vendorbuy_FILES = Tweak.xm $\
 									AppViewController.m $\
 									AppTopViewController.m $\
 									AuthModel.m $\
-									../SharedLibraries/HttpUtil.m
+									ProductListViewController.m $\
+									../SharedLibraries/HttpUtil.m $\
+									../SharedLibraries/Product.m
 vendorbuy_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

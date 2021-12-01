@@ -1,5 +1,9 @@
+#import "SharedLibraries/HttpUtil.h"
+#import "SharedLibraries/Product.h"
+
 #import "AppViewController.h"
 #import "AppTopViewController.h"
+#import "ProductListViewController.h"
 #import "AuthModel.h"
 
 @interface AppViewController ()<UIGestureRecognizerDelegate>
@@ -36,33 +40,22 @@
 	// Add tweakLabel to appView
 	self.view = appView;
 
-	// We need topbar to handle loging.
+	// Add top bar view controller
 	self.appTopViewController = [[AppTopViewController alloc] init];
-
-	// We need to add username / password
 	[self addChildViewController: self.appTopViewController];
 	[self.view addSubview: self.appTopViewController.view];
 
+	// TODO add product list view controller
+	self.productListViewController = [[ProductListViewController alloc]	init];
+	[self addChildViewController: self.productListViewController];
+	[self.view addSubview: self.productListViewController.view];
 
-	// Fetch remote product list and render into appView.
-
-	// Initialize test UILabel here.
-	//UILabel *tweakLabel = [[UILabel alloc] initWithFrame:self.view.bounds];
-	//tweakLabel.userInteractionEnabled = YES;
-	//tweakLabel.backgroundColor = [UIColor whiteColor];
-	//tweakLabel.text = @"TWEAK";
-	//tweakLabel.font = [UIFont systemFontOfSize:25];
-	//tweakLabel.textAlignment = NSTextAlignmentCenter;
-	//[tweakLabel addGestureRecognizer:singleFingerTap];
-	//singleFingerTap.delegate = self;
-
-	//NSLog(@"DEBUG* tweakLabel isUserInteractionEnabled %hhd", tweakLabel.isUserInteractionEnabled);
-	//[self.view addSubview:tweakLabel];
 }
 
-- (void)dealloc {
+- (void) dealloc {
 	self.appTopViewController = nil;
 }
+
 
 //The event handling method
 - (void)handleTap:(UITapGestureRecognizer *)recognizer {
