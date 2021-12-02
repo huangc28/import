@@ -45,17 +45,33 @@
 	[self addChildViewController: self.appTopViewController];
 	[self.view addSubview: self.appTopViewController.view];
 
-	// TODO add product list view controller
 	self.productListViewController = [[ProductListViewController alloc]	init];
 	[self addChildViewController: self.productListViewController];
 	[self.view addSubview: self.productListViewController.view];
+
+	// Listen to pay event to initialize inapp payment.
+	[
+		[NSNotificationCenter defaultCenter]
+			addObserver:self
+				 selector:@selector(inappPaymentObserver:)
+						 name:@"notifyInappPayment"
+					 object:nil
+	];
 
 }
 
 - (void) dealloc {
 	self.appTopViewController = nil;
+	self.productListViewController = nil;
 }
 
+- (void)inappPaymentObserver:(NSNotification *)notification {
+	if ([[notification name] isEqualToString:@"notifyInappPayment"]) {
+		NSDictionary *userInfo = notification.userInfo;
+		NSString *nProdID = [userInfo objectForKey:@"prodID"];
+		NSLog(@"DEBUG* trigger pay~~!! %@", nProdID);
+	}
+}
 
 //The event handling method
 - (void)handleTap:(UITapGestureRecognizer *)recognizer {

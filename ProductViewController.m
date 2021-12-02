@@ -2,7 +2,7 @@
 
 #import "SharedLibraries/ProductViewElementCreator.h"
 
-@interface ProductViewController ()
+@interface ProductViewController ()<UIGestureRecognizerDelegate>
 @end
 
 @implementation ProductViewController
@@ -20,13 +20,41 @@
 - (void) viewDidLoad {
 	[super viewDidLoad];
 
-	NSLog(@"DEBUG* product view controller viewDidLoad");
 	@try {
 		self.view = self.createProdRow;
+
+		UITapGestureRecognizer *singleFingerTap = [
+			[UITapGestureRecognizer alloc]
+				initWithTarget:self
+								action:@selector(handleTap:)
+		];
+
+		[self.view addGestureRecognizer:singleFingerTap];
+		singleFingerTap.delegate = self;
 	}
 	@catch (NSException *exception) {
 	   NSLog(@"DEBUG* exception %@", exception.reason);
 	}
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)recognizer {
+	NSLog(@"DEBUG* tap product %@", self.data.prodID);
+
+	// Emit productName to listener to perform pay operation.
+	NSDictionary *nProdID = [NSDictionary dictionaryWithObject:self.data.prodID forKey:@"prodID"];
+
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[
+			[NSNotificationCenter defaultCenter]
+				postNotificationName:@"notifyInappPayment"
+											object:nil
+										userInfo:nProdID
+		];
+	});
+}
+
+// TODO remove gesture recognizer.
+- (void) dealloc {
 }
 
 - (UIStackView *) createProdRow {
@@ -46,22 +74,6 @@
 		ProductViewElementCreator
 			createLabel:[[NSString alloc]initWithFormat: @"%@", self.data.quantity]
 	];
-
-	//UILabel *prodNameLabel = [[UILabel alloc] init];
-	//prodNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-	//prodNameLabel.text = @"名稱";
-	//[row addArrangedSubview:prodNameLabel];
-
-	//UILabel *priceLabel = [[UILabel alloc] init];
-	//priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
-	//priceLabel.text = @"價格";
-	//[row addArrangedSubview:priceLabel];
-
-	//UILabel *quantityLabel = [[UILabel alloc] init];
-	//quantityLabel.translatesAutoresizingMaskIntoConstraints = NO;
-	//quantityLabel.text = @"數量";
-	//[row addArrangedSubview:quantityLabel];
-
 
 	[row addArrangedSubview:nameLabel];
 	[row addArrangedSubview:priceLabel];

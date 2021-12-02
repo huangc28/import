@@ -66,6 +66,7 @@
 			];
 
 			[self.prodsStackView addArrangedSubview:prodViewController.view];
+			[self addChildViewController:prodViewController];
 		}
 
 		[self setupLayout];
@@ -151,8 +152,6 @@
 		[[UIScreen mainScreen] applicationFrame].size.width,
 		[[UIScreen mainScreen] applicationFrame].size.height
 	);
-	//[self.view addSubview:self.scrollView];
-	//[self.view addSubview:self.contentView];
 }
 
 // Setup a stack view container where product status will be listed row by row
@@ -169,9 +168,6 @@
 	self.prodsStackView.distribution = UIStackViewDistributionEqualSpacing;
 	self.prodsStackView.spacing = 30;
   self.prodsStackView.translatesAutoresizingMaskIntoConstraints = NO;
-
-	//[self.scrollView addSubview:self.prodsStackView];
-	//[self.contentView addSubview:self.prodsStackView];
 }
 
 - (void)setupLayout {
