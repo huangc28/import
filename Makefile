@@ -6,14 +6,16 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = vendorbuy
 
-vendorbuy_FRAMEWORKS = StoreKit UIKit
+vendorbuy_FRAMEWORKS = StoreKit UIKit CoreGraphics
 vendorbuy_FILES = Tweak.xm $\
 									AppViewController.m $\
 									AppTopViewController.m $\
 									AuthModel.m $\
 									ProductListViewController.m $\
+									ProductViewController.m $\
 									../SharedLibraries/HttpUtil.m $\
-									../SharedLibraries/Product.m
+									../SharedLibraries/Product.m $\
+									../SharedLibraries/ProductViewElementCreator.m
 vendorbuy_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

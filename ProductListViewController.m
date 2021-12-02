@@ -1,6 +1,11 @@
 #import "SharedLibraries/HttpUtil.h"
+#import "SharedLibraries/ProductViewElementCreator.h"
 
 #import "ProductListViewController.h"
+#import "ProductViewController.h"
+
+@interface ProductListViewController ()
+@end
 
 @implementation ProductListViewController
 @synthesize products;
@@ -8,8 +13,8 @@
 - (void) viewDidLoad {
 	[super viewDidLoad];
 
-	UIScrollView *prodView = [
-		[UIScrollView alloc] initWithFrame:CGRectMake(
+	self.view = [
+		[UIView alloc] initWithFrame: CGRectMake(
 			0,
 			80,
 			[[UIScreen mainScreen] applicationFrame].size.width,
@@ -17,16 +22,21 @@
 		)
 	];
 
-	self.view	= prodView;
+	[self setupScrollView];
+	[self setupProductStackView];
 
+	UIStackView *headerRow = [self createHeaderRow];
+
+	[self.prodsStackView addArrangedSubview:headerRow];
+	[self setupLayout: self.scrollView prodsStackView:self.prodsStackView];
 	// We need to observe changes of product list. If product list changes,
 	// we should rerender product list in view.
 	[
 		[NSNotificationCenter defaultCenter]
 			addObserver:self
-				 selector:@selector(productsObserver:)
+				 selector:@selector(fetchProductsObserver:)
 						 name:@"notifyProductsUpdate"
-					 object:nil
+					 object:self
 	];
 
 	// Fetch inventory status by bundleID
@@ -34,16 +44,35 @@
 	[self fetchInventoryAndReact: bundleIdentifier];
 }
 
-- (void) productsObserver:(NSNotification *) notification {
-	NSLog(@"DEBUG* trigger products observer");
+// @TODO rename to fetchProductsObserver.
+- (void) fetchProductsObserver:(NSNotification *) notification {
 	if ([[notification name] isEqualToString:@"notifyProductsUpdate"]) {
 		NSDictionary *userInfo = notification.userInfo;
 		NSArray * nProds = [userInfo objectForKey:@"products"];
 
-		NSLog(@"DEBUG* products~~* %@", nProds);
+		// Create list of product controller.
+		NSLog(@"DEBUG* prodLength %lu", (unsigned long)[nProds count]);
+
+		for (Product *prod in nProds) {
+			NSLog(@"DEBUG* prod name %@", prod.prodName);
+			NSLog(@"DEBUG* prod price %@", prod.price);
+			NSLog(@"DEBUG* prod quantity %@", prod.quantity);
+
+			// Initialize ProductViewController with product model.
+			ProductViewController *prodViewController =	[
+				[ProductViewController alloc]initWithData: prod
+			];
+
+			// Manually trigger "viewDidLoad" of prodViewController.
+			[prodViewController view];
+
+			// Append product view to product vertical stack view.
+			[self.prodsStackView addArrangedSubview:prodViewController.prodView];
+		}
 	}
 }
 
+// @TODO remove subviews from properties.
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
@@ -102,16 +131,77 @@
 				// Notify observer to update products views.
 				NSDictionary *nProds = [NSDictionary dictionaryWithObject:self.products forKey:@"products"];
 
-				NSLog(@"DEBUG* products about to be notify %@", nProds);
 
-				[
-					[NSNotificationCenter defaultCenter]
-						postNotificationName:@"notifyProductsUpdate"
-													object:self
-												userInfo: nProds
-				];
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[
+						[NSNotificationCenter defaultCenter]
+							postNotificationName:@"notifyProductsUpdate"
+														object:self
+													userInfo:nProds
+					];
+				});
 			}
 	}];
+}
+
+- (void) setupScrollView {
+	self.scrollView = [[UIScrollView alloc]init];
+	self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+	[self.view addSubview:self.scrollView];
+}
+
+// Setup a stack view container where product status will be listed row by row
+// inside the scroll view. We use UIStackView to auto adjust the vertical layout
+// of product list.
+// [
+//   prod info 1
+//   prod info 2
+//   prod info 3
+// ]
+- (void) setupProductStackView {
+	self.prodsStackView = [[UIStackView alloc] init];
+	self.prodsStackView.axis = UILayoutConstraintAxisVertical;
+	self.prodsStackView.distribution = UIStackViewDistributionEqualSpacing;
+	self.prodsStackView.spacing = 30;
+  self.prodsStackView.translatesAutoresizingMaskIntoConstraints = NO;
+
+	[self.scrollView addSubview:self.prodsStackView];
+}
+
+- (void) setupLayout:(UIScrollView *)scrollView
+			prodsStackView:(UIStackView *)prodsStackView {
+
+	[scrollView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:20.0].active = YES;
+  [scrollView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor].active = YES;
+	[scrollView.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor].active = YES;
+  [scrollView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor].active = YES;
+
+	[prodsStackView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor].active = YES;
+	[prodsStackView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor].active = YES;
+	[prodsStackView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor].active = YES;
+	[prodsStackView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor].active = YES;
+
+}
+
+- (UIStackView *) createHeaderRow {
+	UIStackView *row = [ProductViewElementCreator createRow];
+
+	UILabel *prodNameLabel = [[UILabel alloc] init];
+	prodNameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+	prodNameLabel.text = @"名稱";
+	[row addArrangedSubview:prodNameLabel];
+
+	UILabel *priceLabel = [[UILabel alloc] init];
+	priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
+	priceLabel.text = @"價格";
+	[row addArrangedSubview:priceLabel];
+
+	UILabel *quantityLabel = [[UILabel alloc] init];
+	quantityLabel.translatesAutoresizingMaskIntoConstraints = NO;
+	quantityLabel.text = @"數量";
+	[row addArrangedSubview:quantityLabel];
+
+	return row;
 }
 
 @end
