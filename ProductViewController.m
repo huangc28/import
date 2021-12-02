@@ -22,7 +22,7 @@
 
 	NSLog(@"DEBUG* product view controller viewDidLoad");
 	@try {
-		self.prodView = [self createProdRow];
+		self.view = self.createProdRow;
 	}
 	@catch (NSException *exception) {
 	   NSLog(@"DEBUG* exception %@", exception.reason);

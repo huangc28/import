@@ -18,17 +18,24 @@
 			0,
 			80,
 			[[UIScreen mainScreen] applicationFrame].size.width,
-			[[UIScreen mainScreen] applicationFrame].size.height
+			[[UIScreen mainScreen] applicationFrame].size.height - 50
 		)
 	];
+
+	self.contentView = [[UIView alloc] init];
+	self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
 
 	[self setupScrollView];
 	[self setupProductStackView];
 
-	UIStackView *headerRow = [self createHeaderRow];
+	[self.view addSubview:self.scrollView];
+	[self.scrollView addSubview:self.contentView];
+	[self.contentView addSubview:self.prodsStackView];
 
+	UIStackView *headerRow = [self createHeaderRow];
 	[self.prodsStackView addArrangedSubview:headerRow];
-	[self setupLayout: self.scrollView prodsStackView:self.prodsStackView];
+
+	[self setupLayout];
 	// We need to observe changes of product list. If product list changes,
 	// we should rerender product list in view.
 	[
@@ -44,31 +51,24 @@
 	[self fetchInventoryAndReact: bundleIdentifier];
 }
 
-// @TODO rename to fetchProductsObserver.
+// @TODO Uiscroll view can not be scrolled.
+//   - Try setup layout again.
+//   - Try set constraint height foreach product view.
 - (void) fetchProductsObserver:(NSNotification *) notification {
 	if ([[notification name] isEqualToString:@"notifyProductsUpdate"]) {
 		NSDictionary *userInfo = notification.userInfo;
 		NSArray * nProds = [userInfo objectForKey:@"products"];
 
-		// Create list of product controller.
-		NSLog(@"DEBUG* prodLength %lu", (unsigned long)[nProds count]);
-
 		for (Product *prod in nProds) {
-			NSLog(@"DEBUG* prod name %@", prod.prodName);
-			NSLog(@"DEBUG* prod price %@", prod.price);
-			NSLog(@"DEBUG* prod quantity %@", prod.quantity);
-
-			// Initialize ProductViewController with product model.
+			// Initialize ProductViewController for each product model.
 			ProductViewController *prodViewController =	[
 				[ProductViewController alloc]initWithData: prod
 			];
 
-			// Manually trigger "viewDidLoad" of prodViewController.
-			[prodViewController view];
-
-			// Append product view to product vertical stack view.
-			[self.prodsStackView addArrangedSubview:prodViewController.prodView];
+			[self.prodsStackView addArrangedSubview:prodViewController.view];
 		}
+
+		[self setupLayout];
 	}
 }
 
@@ -147,7 +147,12 @@
 - (void) setupScrollView {
 	self.scrollView = [[UIScrollView alloc]init];
 	self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-	[self.view addSubview:self.scrollView];
+	self.scrollView.contentSize = CGSizeMake(
+		[[UIScreen mainScreen] applicationFrame].size.width,
+		[[UIScreen mainScreen] applicationFrame].size.height
+	);
+	//[self.view addSubview:self.scrollView];
+	//[self.view addSubview:self.contentView];
 }
 
 // Setup a stack view container where product status will be listed row by row
@@ -165,22 +170,34 @@
 	self.prodsStackView.spacing = 30;
   self.prodsStackView.translatesAutoresizingMaskIntoConstraints = NO;
 
-	[self.scrollView addSubview:self.prodsStackView];
+	//[self.scrollView addSubview:self.prodsStackView];
+	//[self.contentView addSubview:self.prodsStackView];
 }
 
-- (void) setupLayout:(UIScrollView *)scrollView
-			prodsStackView:(UIStackView *)prodsStackView {
+- (void)setupLayout {
+	@try {
+		[self.scrollView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:20.0].active = YES;
+  	[self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor].active = YES;
+		[self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor].active = YES;
+  	[self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor].active = YES;
 
-	[scrollView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:20.0].active = YES;
-  [scrollView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor].active = YES;
-	[scrollView.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor].active = YES;
-  [scrollView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor].active = YES;
 
-	[prodsStackView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor].active = YES;
-	[prodsStackView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor].active = YES;
-	[prodsStackView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor].active = YES;
-	[prodsStackView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor].active = YES;
+		// Content view layout.
+		[self.contentView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor].active = YES;
+		[self.contentView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor].active = YES;
+		[self.contentView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor].active = YES;
+		[self.contentView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor constant: -40].active = YES;
+		[self.contentView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor].active = YES;
 
+
+		// Products stack view layout.
+		[self.prodsStackView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
+		[self.prodsStackView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
+		[self.prodsStackView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = YES;
+		[self.prodsStackView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
+	} @catch (NSException *exception) {
+	   NSLog(@"DEBUG* exception %@", exception.reason);
+	}
 }
 
 - (UIStackView *) createHeaderRow {
