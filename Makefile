@@ -13,6 +13,7 @@ vendorbuy_FILES = Tweak.xm $\
 									AuthModel.m $\
 									ProductListViewController.m $\
 									ProductViewController.m $\
+									VBStoreKitManager.m $\
 									../SharedLibraries/HttpUtil.m $\
 									../SharedLibraries/Product.m $\
 									../SharedLibraries/ProductViewElementCreator.m

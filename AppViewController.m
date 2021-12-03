@@ -1,3 +1,5 @@
+#import "StoreKit/StoreKit.h"
+
 #import "SharedLibraries/HttpUtil.h"
 #import "SharedLibraries/Product.h"
 
@@ -58,6 +60,11 @@
 					 object:nil
 	];
 
+	// Assign a payment observer so we can store item transaction info.
+	self.vbStoreKitManager = [[VBStoreKitManager alloc] init];
+
+	[[SKPaymentQueue defaultQueue] addTransactionObserver:self.vbStoreKitManager];
+
 }
 
 - (void) dealloc {
@@ -69,7 +76,15 @@
 	if ([[notification name] isEqualToString:@"notifyInappPayment"]) {
 		NSDictionary *userInfo = notification.userInfo;
 		NSString *nProdID = [userInfo objectForKey:@"prodID"];
+
 		NSLog(@"DEBUG* trigger pay~~!! %@", nProdID);
+		// Initialize inapp payment.
+		//SKProduct *product = [[SKProduct alloc] init];
+		//[product _setProductIdentifier:nProdID];
+
+		SKMutablePayment *payment =[[SKMutablePayment alloc] init];
+		payment.productIdentifier = nProdID;
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
 	}
 }
 
