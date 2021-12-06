@@ -1,5 +1,7 @@
 #import "VBStoreKitManager.h"
+
 #import "SharedLibraries/HttpUtil.h"
+#import "SharedLibraries/Alert.h"
 
 @implementation VBStoreKitManager
 
@@ -39,11 +41,63 @@
 																 receipt:encodedReceipt
 												 transactionTime:transaction.transactionDate
 												completedHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-													NSLog(@"DEBUG* add to inventory success");
+													if (error) {
+														[
+															Alert show:^(){
+																NSLog(@"failed to add game item to inventory %@", [error localizedDescription]);
+															}
+															title: @"Error"
+															message: [error localizedDescription]
+														];
+
+														return;
+													}
+
+													NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+													NSError *parseError = nil;
+													NSDictionary *responseDictionary = [
+														NSJSONSerialization
+															JSONObjectWithData:data
+															options:0
+															error:&parseError
+													];
+
+													if (parseError) {
+														[
+															Alert show:^(){
+																NSLog(@"failed to add game item to inventory %@", [
+																		parseError localizedDescription
+																]);
+															}
+															title: @"Error"
+															message: [parseError localizedDescription]
+														];
+
+														return;
+													}
+
+													if (httpResponse.statusCode == 200) {
+														[
+															Alert
+																show:^(){
+																	NSLog(@"DEBUG* game item imported!");
+																}
+																title: @"Success"
+																message: @"import complete"
+														];
+													} else {
+														[
+															Alert
+																show:^(){
+																	NSLog(@"DEBUG* item import failed");
+																}
+																title: @"Error"
+																message: responseDictionary[@"err"]
+														];
+													}
 												}
 									];
 							}
-
 
 							[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 

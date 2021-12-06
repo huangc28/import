@@ -16,7 +16,8 @@ vendorbuy_FILES = Tweak.xm $\
 									VBStoreKitManager.m $\
 									../SharedLibraries/HttpUtil.m $\
 									../SharedLibraries/Product.m $\
-									../SharedLibraries/ProductViewElementCreator.m
+									../SharedLibraries/ProductViewElementCreator.m $\
+									../SharedLibraries/Alert.m
 vendorbuy_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
