@@ -4,10 +4,10 @@ INSTALL_TARGET_PROCESSES = SpringBoard
 
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = vendorbuy
+TWEAK_NAME = import
 
-vendorbuy_FRAMEWORKS = StoreKit UIKit CoreGraphics
-vendorbuy_FILES = Tweak.xm $\
+import_FRAMEWORKS = StoreKit UIKit CoreGraphics
+import_FILES = Tweak.xm $\
 									AppViewController.m $\
 									AppTopViewController.m $\
 									AuthModel.m $\
@@ -18,6 +18,6 @@ vendorbuy_FILES = Tweak.xm $\
 									../SharedLibraries/Product.m $\
 									../SharedLibraries/ProductViewElementCreator.m $\
 									../SharedLibraries/Alert.m
-vendorbuy_CFLAGS = -fobjc-arc
+import_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

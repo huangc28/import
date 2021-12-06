@@ -1,8 +1,8 @@
-Package: com.huangc28.vendorbuy
-Name: vendorbuy
+Package: com.huangc28.import
+Name: import
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Import purchased game item to inventory
 Maintainer: 黃棋瀚
 Author: 黃棋瀚
 Section: Tweaks
