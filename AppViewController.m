@@ -77,11 +77,7 @@
 		NSDictionary *userInfo = notification.userInfo;
 		NSString *nProdID = [userInfo objectForKey:@"prodID"];
 
-		NSLog(@"DEBUG* trigger pay~~!! %@", nProdID);
 		// Initialize inapp payment.
-		//SKProduct *product = [[SKProduct alloc] init];
-		//[product _setProductIdentifier:nProdID];
-
 		SKMutablePayment *payment =[[SKMutablePayment alloc] init];
 		payment.productIdentifier = nProdID;
     [[SKPaymentQueue defaultQueue] addPayment:payment];

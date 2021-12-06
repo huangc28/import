@@ -38,8 +38,6 @@
 }
 
 - (void)handleTap:(UITapGestureRecognizer *)recognizer {
-	NSLog(@"DEBUG* tap product %@", self.data.prodID);
-
 	// Emit productName to listener to perform pay operation.
 	NSDictionary *nProdID = [NSDictionary dictionaryWithObject:self.data.prodID forKey:@"prodID"];
 
