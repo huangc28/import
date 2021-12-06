@@ -85,6 +85,8 @@
 																title: @"Success"
 																message: @"import complete"
 														];
+
+														// TODO refetch product inventory again.
 													} else {
 														[
 															Alert
@@ -101,7 +103,6 @@
 
 							[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 
-							NSLog(@"DEBUG* VBStoreKitManager finishTransaction");
 							break;
 						}
 
