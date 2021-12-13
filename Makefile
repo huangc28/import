@@ -14,7 +14,6 @@ import_FILES = Tweak.xm $\
 									ProductListViewController.m $\
 									ProductViewController.m $\
 									VBStoreKitManager.m $\
-									SKMutablePaymentQueue.m $\
 									../SharedLibraries/HttpUtil.m $\
 									../SharedLibraries/Product.m $\
 									../SharedLibraries/ProductViewElementCreator.m $\

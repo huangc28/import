@@ -59,17 +59,7 @@
 		NSDictionary *userInfo = notification.userInfo;
 		NSArray * nProds = [userInfo objectForKey:@"products"];
 
-		for (Product *prod in nProds) {
-			// Initialize ProductViewController for each product model.
-			ProductViewController *prodViewController =	[
-				[ProductViewController alloc]initWithData: prod
-			];
-
-			[self.prodsStackView addArrangedSubview:prodViewController.view];
-			[self addChildViewController:prodViewController];
-		}
-
-		[self setupLayout];
+		[self renderProductList: nProds];
 	}
 }
 
@@ -143,6 +133,22 @@
 				});
 			}
 	}];
+}
+
+// Responsible for rendering product view.
+- (void) renderProductList:(NSArray *)productList {
+	for (Product *prod in productList) {
+		// Initialize ProductViewController for each product model.
+		ProductViewController *prodViewController =	[
+			[ProductViewController alloc]initWithData: prod
+		];
+
+		[self.prodsStackView addArrangedSubview:prodViewController.view];
+		[self addChildViewController:prodViewController];
+
+	}
+
+	[self setupLayout];
 }
 
 - (void) setupScrollView {
