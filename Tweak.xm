@@ -59,20 +59,6 @@
 }
 %end
 
-%hook UnityView
-
-//- (void)touchesEnded:(id)arg1 withEvent:(id)arg2{
-//	NSLog(@"DEBUG* touchesEnded");
-//
-//	%orig;
-//}
-//
-//- (void)touchesBegan:(id)arg1 withEvent:(id)arg2{
-//	NSLog(@"DEBUG* touchesBegan");
-//	%orig;
-//}
-%end
-
 %hook SBMainWorkspace
 
 -(void)applicationProcessDidLaunch:(FBProcess *)applicationProcess {

@@ -73,6 +73,10 @@
 }
 
 - (void)inappPaymentObserver:(NSNotification *)notification {
+	NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+
+	NSLog(@"DEBUG* receiptURL %@", receiptURL);
+
 	if ([[notification name] isEqualToString:@"notifyInappPayment"]) {
 		NSDictionary *userInfo = notification.userInfo;
 		NSString *nProdID = [userInfo objectForKey:@"prodID"];

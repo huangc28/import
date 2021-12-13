@@ -31,8 +31,7 @@
 
 		[self.view addGestureRecognizer:singleFingerTap];
 		singleFingerTap.delegate = self;
-	}
-	@catch (NSException *exception) {
+	} @catch (NSException *exception) {
 	   NSLog(@"DEBUG* exception %@", exception.reason);
 	}
 }

@@ -1,7 +1,13 @@
+#import "Storekit/Storekit.h"
+
 #import "VBStoreKitManager.h"
 
 #import "SharedLibraries/HttpUtil.h"
 #import "SharedLibraries/Alert.h"
+
+@interface SKPaymentQueue()
+@property (nonatomic, copy) NSArray* transactions;
+@end
 
 @implementation VBStoreKitManager
 
@@ -14,7 +20,19 @@
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased: {
-              NSLog(@"DEBUG* transaction success %@", transaction);
+										// Observe SKPaymentTransaction:
+              NSLog(@"DEBUG* transaction success");
+              NSLog(@"DEBUG* transaction originalTransaction%@", transaction.originalTransaction);
+              NSLog(@"DEBUG* transaction downloads %lu", (unsigned long) [transaction.downloads count]);
+              NSLog(@"DEBUG* transaction transactionDate %@", transaction.transactionDate);
+              NSLog(@"DEBUG* transaction transactionIdentifier %@", transaction.transactionIdentifier);
+
+							SKPayment *payment = transaction.payment;
+              NSLog(@"DEBUG* payment productIdentifier %@", payment.productIdentifier);
+              NSLog(@"DEBUG* payment quantity %ld", (long) payment.quantity);
+              NSLog(@"DEBUG* payment reqestData %@", payment.requestData);
+              NSLog(@"DEBUG* payment applicationUsername %@", payment.applicationUsername);
+              NSLog(@"DEBUG* payment simulatesAskToBuyInSandbox %d", payment.simulatesAskToBuyInSandbox);
 
 							NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
 							NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
@@ -25,10 +43,7 @@
 							    /* Get the receipt in encoded format */
 							    NSString *encodedReceipt = [receipt base64EncodedStringWithOptions:0];
 
-							    NSLog(@"DEBUG* VBStoreKitManager transaction ID %@", transaction.transactionIdentifier);
-							    NSLog(@"DEBUG* VBStoreKitManager transaction date %@", transaction.transactionDate);
-							    // NSLog(@"DEBUG* VBStoreKitManager transaction receipt %@", transaction.transactionReceipt);
-							    NSLog(@"DEBUG* VBStoreKitManager encodedReceipt %@", encodedReceipt);
+									NSLog(@"DEBUG* %@", encodedReceipt);
 
 
 									NSString *productID = transaction.payment.productIdentifier;
@@ -77,6 +92,8 @@
 													}
 
 													if (httpResponse.statusCode == 200) {
+														[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+
 														[
 															Alert
 																show:^(){
@@ -85,6 +102,7 @@
 																title: @"Success"
 																message: @"import complete"
 														];
+
 
 														// TODO refetch product inventory again.
 													} else {
@@ -100,8 +118,6 @@
 												}
 									];
 							}
-
-							[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 
 							break;
 						}
@@ -122,3 +138,5 @@
 
 
 @end
+
+
