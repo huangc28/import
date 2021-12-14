@@ -22,17 +22,6 @@
             case SKPaymentTransactionStatePurchased: {
 										// Observe SKPaymentTransaction:
               NSLog(@"DEBUG* transaction success");
-              NSLog(@"DEBUG* transaction originalTransaction%@", transaction.originalTransaction);
-              NSLog(@"DEBUG* transaction downloads %lu", (unsigned long) [transaction.downloads count]);
-              NSLog(@"DEBUG* transaction transactionDate %@", transaction.transactionDate);
-              NSLog(@"DEBUG* transaction transactionIdentifier %@", transaction.transactionIdentifier);
-
-							SKPayment *payment = transaction.payment;
-              NSLog(@"DEBUG* payment productIdentifier %@", payment.productIdentifier);
-              NSLog(@"DEBUG* payment quantity %ld", (long) payment.quantity);
-              NSLog(@"DEBUG* payment reqestData %@", payment.requestData);
-              NSLog(@"DEBUG* payment applicationUsername %@", payment.applicationUsername);
-              NSLog(@"DEBUG* payment simulatesAskToBuyInSandbox %d", payment.simulatesAskToBuyInSandbox);
 
 							NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
 							NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
@@ -97,14 +86,19 @@
 														[
 															Alert
 																show:^(){
-																	NSLog(@"DEBUG* game item imported!");
+																	// Dispatch event to "ProductListViewController" to rerender product list
+																	NSLog(@"DEBUG* import completed");
 																}
 																title: @"Success"
 																message: @"import complete"
 														];
 
+														[
+															[NSNotificationCenter defaultCenter]
+																postNotificationName:@"notifyRefreshProducts"
+																							object:self
+														];
 
-														// TODO refetch product inventory again.
 													} else {
 														[
 															Alert

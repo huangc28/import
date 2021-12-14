@@ -36,6 +36,19 @@
 	[self.prodsStackView addArrangedSubview:headerRow];
 
 	[self setupLayout];
+
+	// An event handler that reacts to refresh product list. For example, when vendor
+	// finished adding stock to inventory, 'ProductListViewController' needs to refresh
+	// product list again to rerender product list view.
+	[
+		[NSNotificationCenter defaultCenter]
+			addObserver:self
+				 selector:@selector(refreshProductsObserver:)
+						 name:@"notifyRefreshProducts"
+					 object:nil
+	];
+
+
 	// We need to observe changes of product list. If product list changes,
 	// we should rerender product list in view.
 	[
@@ -46,15 +59,32 @@
 					 object:self
 	];
 
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[
+			[NSNotificationCenter defaultCenter]
+				postNotificationName:@"notifyRefreshProducts"
+											object:self
+		];
+	});
+
 	// Fetch inventory status by bundleID
 	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 	[self fetchInventoryAndReact: bundleIdentifier];
 }
 
+- (void) refreshProductsObserver:(NSNotification *)notification {
+	NSLog(@"DEBUG* trigger refreshProductsObserver");
+
+	if ([[notification name] isEqualToString:@"notifyRefreshProducts"]) {
+		NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+		[self fetchInventoryAndReact: bundleIdentifier];
+	}
+}
+
 // @TODO Uiscroll view can not be scrolled.
 //   - Try setup layout again.
 //   - Try set constraint height foreach product view.
-- (void) fetchProductsObserver:(NSNotification *) notification {
+- (void) fetchProductsObserver:(NSNotification *)notification {
 	if ([[notification name] isEqualToString:@"notifyProductsUpdate"]) {
 		NSDictionary *userInfo = notification.userInfo;
 		NSArray * nProds = [userInfo objectForKey:@"products"];
@@ -122,7 +152,6 @@
 				// Notify observer to update products views.
 				NSDictionary *nProds = [NSDictionary dictionaryWithObject:self.products forKey:@"products"];
 
-
 				dispatch_async(dispatch_get_main_queue(), ^{
 					[
 						[NSNotificationCenter defaultCenter]
@@ -137,6 +166,15 @@
 
 // Responsible for rendering product view.
 - (void) renderProductList:(NSArray *)productList {
+	[self setupLayout];
+
+	// Remove all subviews from prodsStackView first before refreshing
+	// product list view.
+	[
+		self.prodsStackView.subviews
+			makeObjectsPerformSelector: @selector(removeFromSuperview)
+	];
+
 	for (Product *prod in productList) {
 		// Initialize ProductViewController for each product model.
 		ProductViewController *prodViewController =	[
@@ -145,10 +183,7 @@
 
 		[self.prodsStackView addArrangedSubview:prodViewController.view];
 		[self addChildViewController:prodViewController];
-
 	}
-
-	[self setupLayout];
 }
 
 - (void) setupScrollView {

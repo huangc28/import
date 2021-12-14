@@ -9,25 +9,10 @@
 - (void)applicationDidBecomeActive:(id)arg1{
 	NSLog(@"DEBUG* applicationDidBecomeActive %@", arg1);
 
-	//static dispatch_once_t once;
-	//dispatch_once(&once, ^{
-	//	AppViewController *appViewController = [[AppViewController alloc] init];
-	//	UIWindow *window = [UIApplication sharedApplication].keyWindow;
-
-	//	NSLog(@"DEBUG* window 2 %@", window);
-
-	//	appViewController.view.center = window.center;
-  //  [window addSubview:appViewController.view];
-	//});
-
-	//NSLog(@"DEBUG* StoreKitManager init");
-
 	%orig;
 }
 
 - (_Bool)application:(id)arg1 didFinishLaunchingWithOptions:(id)arg2{
-
-	// NSLog(@"DEBUG* didFinishLaunchingWithOptions %@", arg1);
 	return %orig;
 }
 %end
@@ -58,22 +43,6 @@
 	return r;
 }
 %end
-
-%hook SBMainWorkspace
-
--(void)applicationProcessDidLaunch:(FBProcess *)applicationProcess {
-    NSLog(@"DEBUG* applicationProcessDidLaunch");
-
-		// AppViewController *appViewController = [[AppViewController alloc] init];
-		UIWindow *window = [UIApplication sharedApplication].keyWindow;
-
-		NSLog(@"DEBUG* window 1 %@", window);
-
-    %orig;
-}
-
-%end // SBMainWorkspace
-
 %end
 
 
