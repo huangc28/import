@@ -5,17 +5,6 @@
 #import "AppViewController.h"
 
 %group Hooks
-%hook UnityAppController
-- (void)applicationDidBecomeActive:(id)arg1{
-	NSLog(@"DEBUG* applicationDidBecomeActive %@", arg1);
-
-	%orig;
-}
-
-- (_Bool)application:(id)arg1 didFinishLaunchingWithOptions:(id)arg2{
-	return %orig;
-}
-%end
 
 %hook StoreKitManager
 
@@ -43,6 +32,35 @@
 	return r;
 }
 %end
+
+%hook IOSAppDelegate
+- (void)applicationDidBecomeActive:(UIApplication *)app {
+	NSLog(@"DEBUG* applicationDidBecomeActive %@", app);
+
+
+	static dispatch_once_t once;
+
+	dispatch_once(&once, ^{
+		NSLog(@"DEBUG* starting vendor app");
+		AppViewController *appViewController = [[AppViewController alloc] init];
+		/*UIWindow *window = [UIApplication sharedApplication].keyWindow;*/
+		UIWindow *window = app.keyWindow;
+
+		// Override the app view.
+		appViewController.view.center = window.center;
+
+		// Override the app controller.
+		window.rootViewController = appViewController;
+		[window addSubview:appViewController.view];
+
+		NSLog(@"DEBUG* vendor started");
+	});
+
+
+	%orig;
+}
+%end
+
 %end
 
 
