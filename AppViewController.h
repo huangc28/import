@@ -11,6 +11,8 @@
 	VBStoreKitManager *_vbStoreKitManager;
 }
 
+- (void) renderImportApp:(UIApplication *)app;
+
 @property(strong, nonatomic) AppTopViewController *appTopViewController; // @synthesize appTopViewController=_appTopViewController;
 @property(strong, nonatomic) ProductListViewController *productListViewController; // @synthesize productListViewController=_productListViewController;
 @property(strong, nonatomic) VBStoreKitManager *vbStoreKitManager; // @synthesize vbStoreKitManager=_vbStoreKitManager

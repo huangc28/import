@@ -6,6 +6,7 @@
 
 %group Hooks
 
+// 明日方舟
 %hook StoreKitManager
 
 - (id)init {
@@ -14,18 +15,11 @@
 
 	static dispatch_once_t once;
 	dispatch_once(&once, ^{
-		NSLog(@"DEBUG* starting vendor app");
 		AppViewController *appViewController = [[AppViewController alloc] init];
-		UIWindow *window = [UIApplication sharedApplication].keyWindow;
 
-		// Override the app view.
-		appViewController.view.center = window.center;
+		UIApplication *app = [UIApplication sharedApplication];
 
-		// Override the app controller.
-		window.rootViewController = appViewController;
-    [window addSubview:appViewController.view];
-
-		NSLog(@"DEBUG* vendor started");
+		[appViewController renderImportApp:app];
 	});
 
 
@@ -33,27 +27,14 @@
 }
 %end
 
+// 天堂 2 m
 %hook IOSAppDelegate
 - (void)applicationDidBecomeActive:(UIApplication *)app {
-	NSLog(@"DEBUG* applicationDidBecomeActive %@", app);
-
-
 	static dispatch_once_t once;
 
 	dispatch_once(&once, ^{
-		NSLog(@"DEBUG* starting vendor app");
 		AppViewController *appViewController = [[AppViewController alloc] init];
-		/*UIWindow *window = [UIApplication sharedApplication].keyWindow;*/
-		UIWindow *window = app.keyWindow;
-
-		// Override the app view.
-		appViewController.view.center = window.center;
-
-		// Override the app controller.
-		window.rootViewController = appViewController;
-		[window addSubview:appViewController.view];
-
-		NSLog(@"DEBUG* vendor started");
+		[appViewController renderImportApp:app];
 	});
 
 
@@ -63,10 +44,8 @@
 
 %end
 
-
 %ctor {
 	NSLog(@"DEBUG* vendorbuy extension");
-
 
 	%init(Hooks);
 }

@@ -73,8 +73,6 @@
 	[self.view addSubview: self.usernameTextField];
 	[self.view addSubview: self.passwordTextField];
 	[self.view addSubview: submitButton];
-
-
 }
 
 

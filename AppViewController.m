@@ -72,6 +72,18 @@
 	self.productListViewController = nil;
 }
 
+- (void) renderImportApp:(UIApplication *)app {
+		UIWindow *window = app.keyWindow;
+
+		// Override the app view.
+		self.view.center = window.center;
+
+		// Override the app controller.
+		window.rootViewController = self;
+
+		[window addSubview:self.view];
+}
+
 - (void)inappPaymentObserver:(NSNotification *)notification {
 	NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
 
