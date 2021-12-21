@@ -10,6 +10,7 @@ import_FRAMEWORKS = StoreKit UIKit CoreGraphics
 import_FILES = Tweak.xm $\
 	Lineage2MImporter.xm $\
 	ArknightsImporter.xm $\
+	LineageMLiveImporter.xm $\
 	AppViewController.m $\
 	AppTopViewController.m $\
 	AuthModel.m $\
