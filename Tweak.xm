@@ -5,13 +5,20 @@
 #import "Lineage2MImporter.h"
 #import "ArknightsImporter.h"
 #import "LineageMLiveImporter.h"
+#import "KgtwImporter.h"
 
 %ctor {
-	NSLog(@"DEBUG* vendorbuy extension");
+	NSLog(@"DEBUG* import extension");
 
+	// 天堂 2 M
 	InitLineage2MImporter();
 
+	// 明日方舟
 	InitArknightsImporter();
 
+	// 天堂 M
 	InitLineageMLiveImporter();
+
+	// 傳說對決
+	InitKgtwImporter();
 }

@@ -73,8 +73,6 @@
 }
 
 - (void) refreshProductsObserver:(NSNotification *)notification {
-	NSLog(@"DEBUG* trigger refreshProductsObserver");
-
 	if ([[notification name] isEqualToString:@"notifyRefreshProducts"]) {
 		NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 		[self fetchInventoryAndReact: bundleIdentifier];

@@ -6,11 +6,15 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = import
 
-import_FRAMEWORKS = StoreKit UIKit CoreGraphics
+# UnityFramework: (傳說對決) kgtw
+
+import_EXTRA_FRAMEWORKS = UnityFramework
+import_FRAMEWORKS = StoreKit UIKit
 import_FILES = Tweak.xm $\
 	Lineage2MImporter.xm $\
 	ArknightsImporter.xm $\
 	LineageMLiveImporter.xm $\
+ 	KgtwImporter.xm $\
 	AppViewController.m $\
 	AppTopViewController.m $\
 	AuthModel.m $\
