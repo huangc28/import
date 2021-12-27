@@ -15,6 +15,19 @@
 }
 
 %end
+
+%hook BTPayment
+- (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {}
+%end
+
+%hook FBSDKPaymentObserver
+- (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {}
+%end
+
+%hook FIRAInAppPurchaseTransactionReporter
+- (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {}
+%end
+
 %end
 
 
