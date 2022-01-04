@@ -6,9 +6,6 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = import
 
-# UnityFramework: (傳說對決) kgtw
-
-import_EXTRA_FRAMEWORKS = UnityFramework
 import_FRAMEWORKS = StoreKit UIKit
 import_FILES = Tweak.xm $\
 	Lineage2MImporter.xm $\
@@ -26,5 +23,6 @@ import_FILES = Tweak.xm $\
 	../SharedLibraries/ProductViewElementCreator.m $\
 	../SharedLibraries/Alert.m
 import_CFLAGS = -fobjc-arc
+import_CFLAGS += -DAPI_HOST=@\"$(API_HOST)\"
 
 include $(THEOS_MAKE_PATH)/tweak.mk
