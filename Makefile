@@ -11,7 +11,7 @@ import_FILES = Tweak.xm $\
 	Lineage2MImporter.xm $\
 	ArknightsImporter.xm $\
 	LineageMLiveImporter.xm $\
- 	KgtwImporter.xm $\
+	SnailImporter.xm $\
 	AppViewController.m $\
 	AppTopViewController.m $\
 	AuthModel.m $\

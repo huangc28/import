@@ -5,12 +5,10 @@
 #import "Lineage2MImporter.h"
 #import "ArknightsImporter.h"
 #import "LineageMLiveImporter.h"
-
-// Seems like we need to extract 傳說對決 to an independent tweak.
-// #import "KgtwImporter.h"
+#import "SnailImporter.h"
 
 %ctor {
-	NSLog(@"DEBUG* import extension");
+	NSLog(@"DEBUG* import extension started!");
 
 	// 天堂 2 M
 	InitLineage2MImporter();
@@ -21,6 +19,6 @@
 	// 天堂 M
 	InitLineageMLiveImporter();
 
-	// 傳說對決
-	// InitKgtwImporter();
+	// 最強蝸牛
+	InitSnailImporter();
 }
