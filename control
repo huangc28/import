@@ -1,6 +1,6 @@
 Package: com.huangc28.import
 Name: import
-Version: 0.0.1
+Version: 0.1.0
 Architecture: iphoneos-arm
 Description: Import purchased game item to inventory
 Maintainer: 黃棋瀚
