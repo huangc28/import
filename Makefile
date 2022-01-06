@@ -7,21 +7,22 @@ include $(THEOS)/makefiles/common.mk
 TWEAK_NAME = import
 
 import_FRAMEWORKS = StoreKit UIKit
-import_FILES = Tweak.xm $\
-	Lineage2MImporter.xm $\
-	ArknightsImporter.xm $\
-	LineageMLiveImporter.xm $\
-	SnailImporter.xm $\
-	AppViewController.m $\
-	AppTopViewController.m $\
-	AuthModel.m $\
-	ProductListViewController.m $\
-	ProductViewController.m $\
-	VBStoreKitManager.m $\
-	../SharedLibraries/HttpUtil.m $\
-	../SharedLibraries/Product.m $\
-	../SharedLibraries/ProductViewElementCreator.m $\
-	../SharedLibraries/Alert.m
+#import_FILES = Tweak.xm $\
+	#Lineage2MImporter.xm $\
+	#ArknightsImporter.xm $\
+	#LineageMLiveImporter.xm $\
+	#SnailImporter.xm $\
+	#AppViewController.m $\
+	#AppTopViewController.m $\
+	#AuthModel.m $\
+	#ProductListViewController.m $\
+	#ProductViewController.m $\
+	#VBStoreKitManager.m $\
+	#../SharedLibraries/HttpUtil.m $\
+	#../SharedLibraries/Product.m $\
+	#../SharedLibraries/ProductViewElementCreator.m $\
+	#../SharedLibraries/Alert.m
+import_FILES = $(wildcard ./*.xm) $(wildcard ./*.m) $(wildcard ../SharedLibraries/*.m) Tweak.xm
 import_CFLAGS = -fobjc-arc
 import_CFLAGS += -DAPI_HOST=@\"$(API_HOST)\"
 
