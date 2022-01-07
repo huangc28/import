@@ -2,9 +2,11 @@
 
 #import "SharedLibraries/HttpUtil.h"
 #import "SharedLibraries/Product.h"
+#import "SharedLibraries/Alert.h"
 
 #import "AppTopViewController.h"
 #import "AuthModel.h"
+#import "http/Http.h"
 
 #include "Util.h"
 
@@ -39,10 +41,10 @@
 
 	topBar.backgroundColor = UIColorFromRGB(0x4A76F0);
 	self.view = topBar;
-	// self.usernameTextField.delegate = self;
 
 	// Create username text field
 	UITextField *utf = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 150, 50)];
+
   utf.backgroundColor = [UIColor whiteColor];
 	utf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"用戶名"];
 	[
@@ -92,20 +94,57 @@
 	return but;
 }
 
-- (void)usernameDidChange:(UITextField *)arg1 {
-	authModel.username = arg1.text;
+- (void)usernameDidChange:(UITextField *)arg {
+	authModel.username = arg.text;
+
+	NSLog(@"DEBUG* usernameDidChange %@", authModel.username);
 }
 
-- (void)passwordDidChange:(UITextField *)arg1 {
-	authModel.password = arg1.text;
+- (void)passwordDidChange:(UITextField *)arg {
+	authModel.password = arg.text;
+
+	NSLog(@"DEBUG* passwordDidChange %@", authModel.password);
 }
 
 - (void) handleSubmit:(UIButton *)arg1 {
 	NSString *username = authModel.username;
 	NSString *password = authModel.password;
 
-	NSLog(@"DEBUG* handle submit %@ %@", username, password);
+	// Check non-empty username / password.
+	if ([username length] == 0 || [password length] == 0) {
+		[
+			Alert
+				show:^(){
+					NSLog(@"DEBUG* username or password is empty value");
+				}
+				title: @"輸入帳密登入"
+				message: @"帳號或密碼不可為空"
+		];
 
+		return;
+	}
+
+	// Perform login.
+	HttpUtil *httpUtil = [HttpUtil sharedInstance];
+	[
+		httpUtil
+			login:username
+			password:password
+			completedHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+
+				NSLog(@"DEBUG* response %@", response);
+
+				NSError *parseError = nil;
+				NSDictionary *responseDictionary = [
+					NSJSONSerialization
+						JSONObjectWithData:data
+						options:0
+						error:&parseError
+				];
+
+				NSLog(@"DEBUG* responseDictionary %@", responseDictionary);
+			}
+	];
 }
 
 @end

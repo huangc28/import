@@ -1,0 +1,9 @@
+Package: com.huangc28.import
+Name: import
+Version: 0.1.0
+Architecture: iphoneos-arm
+Description: Import purchased game item to inventory
+Maintainer: 黃棋瀚
+Author: 黃棋瀚
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000)
