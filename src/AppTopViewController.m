@@ -6,7 +6,7 @@
 
 #import "AppTopViewController.h"
 #import "AuthModel.h"
-#import "http/Http.h"
+#import "Auth/AuthManager.h"
 
 #include "Util.h"
 
@@ -132,8 +132,6 @@
 			password:password
 			completedHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
 
-				NSLog(@"DEBUG* response %@", response);
-
 				NSError *parseError = nil;
 				NSDictionary *responseDictionary = [
 					NSJSONSerialization
@@ -142,7 +140,15 @@
 						error:&parseError
 				];
 
+				// Store jwt in AuthManager
 				NSLog(@"DEBUG* responseDictionary %@", responseDictionary);
+
+				AuthManager *authManager = [AuthManager sharedInstance];
+				authManager.jwt = responseDictionary[@"jwt"];
+
+				// Login success.
+
+				NSLog(@"DEBUG* authManager %@", authManager);
 			}
 	];
 }
