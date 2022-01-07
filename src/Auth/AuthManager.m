@@ -14,4 +14,8 @@ static AuthManager *_sharedInstance = nil;
 	return _sharedInstance;
 }
 
+- (_Bool) isLoggedIn {
+	return self.jwt != nil;
+}
+
 @end

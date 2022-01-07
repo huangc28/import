@@ -4,7 +4,8 @@
 	NSString *_jwt;
 }
 
-+ (instancetype)sharedInstance;
++ (instancetype) sharedInstance;
+- (_Bool) isLoggedIn;
 
 @property(strong, nonatomic) NSString *jwt; // @synthesize jwt=_jwt
 

@@ -2,7 +2,9 @@
 
 #import "SharedLibraries/HttpUtil.h"
 #import "SharedLibraries/Product.h"
+#import "SharedLibraries/Alert.h"
 
+#import "Auth/AuthManager.h"
 #import "AppViewController.h"
 #import "AppTopViewController.h"
 #import "ProductListViewController.h"
@@ -85,18 +87,29 @@
 }
 
 - (void)inappPaymentObserver:(NSNotification *)notification {
-	NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
-
-	NSLog(@"DEBUG* receiptURL %@", receiptURL);
-
 	if ([[notification name] isEqualToString:@"notifyInappPayment"]) {
+		// Check if user has logged in to the system.
+		AuthManager *authManager = [AuthManager sharedInstance];
+
+		if (![authManager isLoggedIn]) {
+			[
+				Alert
+					show:^(){
+						NSLog(@"DEBUG* login before importing product");
+					}
+					title: @"[尚未登入]"
+					message: @"登入後才能入庫喔"
+			];
+
+			return;
+		}
+
+		// Start inapp payment.
 		NSDictionary *userInfo = notification.userInfo;
 		NSString *nProdID = [userInfo objectForKey:@"prodID"];
-
-		// Initialize inapp payment.
 		SKMutablePayment *payment =[[SKMutablePayment alloc] init];
 		payment.productIdentifier = nProdID;
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
+		[[SKPaymentQueue defaultQueue] addPayment:payment];
 	}
 }
 
