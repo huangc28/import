@@ -75,15 +75,15 @@
 }
 
 - (void) renderImportApp:(UIApplication *)app {
-		UIWindow *window = app.keyWindow;
+	UIWindow *window = ([UIApplication sharedApplication].delegate).window ;
 
-		// Override the app view.
-		self.view.center = window.center;
+	// Override the app view.
+	self.view.center = window.center;
 
-		// Override the app controller.
-		window.rootViewController = self;
+	// Override the app controller.
+	window.rootViewController = self;
 
-		[window addSubview:self.view];
+	[window addSubview:self.view];
 }
 
 - (void)inappPaymentObserver:(NSNotification *)notification {

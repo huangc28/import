@@ -3,6 +3,7 @@
 #import "SharedLibraries/HttpUtil.h"
 #import "SharedLibraries/Product.h"
 #import "SharedLibraries/Alert.h"
+#import "SharedLibraries/SpinnerViewController.h"
 
 #import "AppTopViewController.h"
 #import "AuthModel.h"
@@ -124,13 +125,25 @@
 		return;
 	}
 
+	// Start animating spinner.
+	UIWindow *window = ([UIApplication sharedApplication].delegate).window ;
+	__block SpinnerViewController *spinnerViewCtrl = [[SpinnerViewController alloc] init];
+	spinnerViewCtrl.view.frame = window.frame;
+	[self.view addSubview:spinnerViewCtrl.view];
+
 	// Perform login.
 	HttpUtil *httpUtil = [HttpUtil sharedInstance];
+
 	[
 		httpUtil
 			login:username
 			password:password
 			completedHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
+				// Hide spinner.
+				//dispatch_async(dispatch_get_main_queue(), ^{
+					//[spinnerViewCtrl.view removeFromSuperview];
+				//});
+				[spinnerViewCtrl hide];
 
 				NSError *parseError = nil;
 				NSDictionary *responseDictionary = [
