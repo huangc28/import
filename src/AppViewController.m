@@ -115,8 +115,7 @@
 
 //The event handling method
 - (void)handleTap:(UITapGestureRecognizer *)recognizer {
-	[self.appTopViewController.usernameTextField resignFirstResponder];
-	[self.appTopViewController.passwordTextField resignFirstResponder];
+	[self.appTopViewController dismissKeyboard];
 }
 
 - (void) didReceiveMemoryWarning {

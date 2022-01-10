@@ -6,6 +6,7 @@
 }
 
 - (UIButton *)createSubmitButton;
+- (void) dismissKeyboard;
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;

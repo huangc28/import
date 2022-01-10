@@ -97,19 +97,18 @@
 
 - (void)usernameDidChange:(UITextField *)arg {
 	authModel.username = arg.text;
-
-	NSLog(@"DEBUG* usernameDidChange %@", authModel.username);
 }
 
 - (void)passwordDidChange:(UITextField *)arg {
 	authModel.password = arg.text;
-
-	NSLog(@"DEBUG* passwordDidChange %@", authModel.password);
 }
 
 - (void) handleSubmit:(UIButton *)arg1 {
 	NSString *username = authModel.username;
 	NSString *password = authModel.password;
+
+	// Dismiss keyboard
+	[self dismissKeyboard];
 
 	// Check non-empty username / password.
 	if ([username length] == 0 || [password length] == 0) {
@@ -118,7 +117,7 @@
 				show:^(){
 					NSLog(@"DEBUG* username or password is empty value");
 				}
-				title: @"輸入帳密登入"
+				title: @"[請登入]"
 				message: @"帳號或密碼不可為空"
 		];
 
@@ -140,9 +139,6 @@
 			password:password
 			completedHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
 				// Hide spinner.
-				//dispatch_async(dispatch_get_main_queue(), ^{
-					//[spinnerViewCtrl.view removeFromSuperview];
-				//});
 				[spinnerViewCtrl hide];
 
 				NSError *parseError = nil;
@@ -153,17 +149,34 @@
 						error:&parseError
 				];
 
+				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+
 				// Store jwt in AuthManager
-				NSLog(@"DEBUG* responseDictionary %@", responseDictionary);
+				if (httpResponse.statusCode == 200) {
+					AuthManager *authManager = [AuthManager sharedInstance];
+					authManager.jwt = responseDictionary[@"jwt"];
 
-				AuthManager *authManager = [AuthManager sharedInstance];
-				authManager.jwt = responseDictionary[@"jwt"];
+					// TODO change login button to logout.
 
-				// Login success.
-
-				NSLog(@"DEBUG* authManager %@", authManager);
+					return;
+				} else {
+					// Display error
+					[
+						Alert
+							show:^(){
+								NSLog(@"DEBUG* item import failed");
+							}
+							title: @"[登入失敗]"
+							message: responseDictionary[@"err"]
+					];
+				}
 			}
 	];
+}
+
+- (void) dismissKeyboard {
+	[self.usernameTextField resignFirstResponder];
+	[self.passwordTextField resignFirstResponder];
 }
 
 @end
