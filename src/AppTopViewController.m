@@ -39,7 +39,6 @@
 	];
 
 	topBar.userInteractionEnabled = YES;
-
 	topBar.backgroundColor = UIColorFromRGB(0x4A76F0);
 	self.view = topBar;
 
