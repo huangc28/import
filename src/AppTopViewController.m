@@ -123,11 +123,12 @@
 		return;
 	}
 
+	// TODO: extract this to AppViewController
 	// Start animating spinner.
 	UIWindow *window = ([UIApplication sharedApplication].delegate).window ;
 	__block SpinnerViewController *spinnerViewCtrl = [[SpinnerViewController alloc] init];
 	spinnerViewCtrl.view.frame = window.frame;
-	[self.view addSubview:spinnerViewCtrl.view];
+	[window addSubview:spinnerViewCtrl.view];
 
 	// Perform login.
 	HttpUtil *httpUtil = [HttpUtil sharedInstance];

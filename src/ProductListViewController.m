@@ -1,5 +1,6 @@
 #import "SharedLibraries/HttpUtil.h"
 #import "SharedLibraries/ProductViewElementCreator.h"
+#import "SharedLibraries/SpinnerViewController.h"
 
 #import "ProductListViewController.h"
 #import "ProductViewController.h"
@@ -74,6 +75,8 @@
 
 - (void) refreshProductsObserver:(NSNotification *)notification {
 	if ([[notification name] isEqualToString:@"notifyRefreshProducts"]) {
+		NSLog(@"DEBUG* refreshProductsObserver");
+
 		NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 		[self fetchInventoryAndReact: bundleIdentifier];
 	}
@@ -91,18 +94,27 @@
 	}
 }
 
-// @TODO remove subviews from properties.
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void) fetchInventoryAndReact:(NSString *)bundleID {
 	// Request remote API for jwt token. If auth success, retrieve inventory info.
+
+	// Enable spinner.
+	UIWindow *window = ([UIApplication sharedApplication].delegate).window ;
+	__block SpinnerViewController *spinnerViewCtrl = [[SpinnerViewController alloc] init];
+	spinnerViewCtrl.view.frame = window.frame;
+	[window addSubview:spinnerViewCtrl.view];
+
 	[
 		[HttpUtil sharedInstance]
 			fetchInventory: bundleID
 
 		completedHandler: ^(NSData *data, NSURLResponse *response, NSError *error){
+			// Hide spinner
+			[spinnerViewCtrl hide];
+
 			if (error) {
 				NSLog(@"DEBUG* error %@", error);
 			}

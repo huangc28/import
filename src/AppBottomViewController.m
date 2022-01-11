@@ -50,7 +50,7 @@
 	// Refresh button
 	UIButton *refreshButton = [self createButton:@"更新"];
 	[
-		uploadFailedListButton
+		refreshButton
 			addTarget: self
 				 action: @selector(handleRefresh:)
 				forControlEvents:UIControlEventTouchUpInside
@@ -125,7 +125,6 @@
 }
 
 - (void)handlePurchaseRecord:(UIButton *)sender {
-	NSLog(@"DEBUG* handlePurchaseRecord");
 }
 
 - (void)handleUploadFailedList:(UIButton *)sender {
@@ -133,7 +132,14 @@
 }
 
 - (void)handleRefresh:(UIButton *)sender {
-	NSLog(@"DEBUG* handleRefresh");
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[
+			[NSNotificationCenter defaultCenter]
+				postNotificationName:@"notifyRefreshProducts"
+											object:nil
+										userInfo:nil
+		];
+	});
 }
 
 @end
