@@ -19,10 +19,42 @@
 	bottomBarView.backgroundColor = UIColorFromRGB(0x4A76F0);
 	self.view = bottomBarView;
 
+	// Close button
 	UIButton *closeButton = [self createButton:@"關閉"];
+	[
+		closeButton
+			addTarget: self
+				 action: @selector(handleClose:)
+				forControlEvents:UIControlEventTouchUpInside
+	];
+
+	// Purchase record button
 	UIButton *purchaseRecordButton = [self createButton:@"購買紀錄列表"];
+	[
+		purchaseRecordButton
+			addTarget: self
+				 action: @selector(handlePurchaseRecord:)
+				forControlEvents:UIControlEventTouchUpInside
+	];
+
+	// Upload failed list button
 	UIButton *uploadFailedListButton = [self createButton:@"上傳失敗列表"];
+	[
+		uploadFailedListButton
+			addTarget: self
+				 action: @selector(handleUploadFailedList:)
+				forControlEvents:UIControlEventTouchUpInside
+	];
+
+
+	// Refresh button
 	UIButton *refreshButton = [self createButton:@"更新"];
+	[
+		uploadFailedListButton
+			addTarget: self
+				 action: @selector(handleRefresh:)
+				forControlEvents:UIControlEventTouchUpInside
+	];
 
 
 	// Create close button
@@ -52,27 +84,56 @@
 - (UIStackView *)createBottomBar {
 	UIStackView *bottomBarContent = [[UIStackView alloc] init];
 	bottomBarContent.axis = UILayoutConstraintAxisHorizontal;
+
 	bottomBarContent.distribution = UIStackViewDistributionFillEqually;
 	bottomBarContent.translatesAutoresizingMaskIntoConstraints = NO;
 
 	return bottomBarContent;
 }
 
-- (UIButton *) createButton:(NSString* )title {
-
+// TODO there should be border in between each button.
+- (UIButton *)createButton:(NSString* )title {
 	UIButton *but = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+
+
+	but.contentEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2);
+	[but setTitle:title forState: UIControlStateNormal];
 	[
 		but
-			addTarget: self
-				 action: @selector(handleSubmit:)
-				forControlEvents:UIControlEventTouchUpInside
+			setTitleColor:[
+				UIColor
+					colorWithRed:36/255.0
+					green       :71/255.0
+					blue        :113/255.0
+					alpha       :1.0
+			] forState:UIControlStateNormal
 	];
-
-	[but setTitle:title forState: UIControlStateNormal];
-	[but setTitleColor:[UIColor colorWithRed:36/255.0 green:71/255.0 blue:113/255.0 alpha:1.0] forState:UIControlStateNormal];
 	[but setExclusiveTouch: YES];
 
 	return but;
+}
+
+- (void)handleClose:(UIButton *)sender {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[
+			[NSNotificationCenter defaultCenter]
+				postNotificationName:@"notifyCloseImporter"
+											object:nil
+										userInfo:nil
+		];
+	});
+}
+
+- (void)handlePurchaseRecord:(UIButton *)sender {
+	NSLog(@"DEBUG* handlePurchaseRecord");
+}
+
+- (void)handleUploadFailedList:(UIButton *)sender {
+	NSLog(@"DEBUG* handleUploadFailedList");
+}
+
+- (void)handleRefresh:(UIButton *)sender {
+	NSLog(@"DEBUG* handleRefresh");
 }
 
 @end

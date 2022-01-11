@@ -60,14 +60,8 @@
 	[self addChildViewController:self.appBottomViewController];
 	[self.view addSubview:self.appBottomViewController.view];
 
-	// Listen to pay event to initialize inapp payment.
-	[
-		[NSNotificationCenter defaultCenter]
-			addObserver:self
-				 selector:@selector(inappPaymentObserver:)
-						 name:@"notifyInappPayment"
-					 object:nil
-	];
+	[self registerInappPaymentEvent];
+	[self registerCloseImporterEvent];
 
 	// Assign a payment observer so we can store item transaction info.
 	self.vbStoreKitManager = [[VBStoreKitManager alloc] init];
@@ -76,15 +70,12 @@
 
 }
 
-- (void) dealloc {
-	self.appTopViewController = nil;
-	self.productListViewController = nil;
-}
-
 - (void) renderImportApp:(UIApplication *)app {
 	UIWindow *window = ([UIApplication sharedApplication].delegate).window ;
 
-	// We need to store the original app reference inorder to restore
+	// We need to store the original app view controller reference inorder
+	// to restore game UI after closing importer app.
+	self.gameRootViewController = window.rootViewController;
 
 	// Override the app view.
 	self.view.center = window.center;
@@ -94,6 +85,35 @@
 
 	[window addSubview:self.view];
 }
+
+- (void) dealloc {
+	self.appTopViewController = nil;
+	self.productListViewController = nil;
+}
+
+
+// Register event to perform in app purchase in importer app
+- (void)registerInappPaymentEvent {
+	[
+		[NSNotificationCenter defaultCenter]
+			addObserver:self
+				 selector:@selector(inappPaymentObserver:)
+						 name:@"notifyInappPayment"
+					 object:nil
+	];
+}
+
+// Register event to close importer APP.
+- (void)registerCloseImporterEvent {
+	[
+		[NSNotificationCenter defaultCenter]
+			addObserver:self
+				 selector:@selector(closeImporterObserver:)
+						 name:@"notifyCloseImporter"
+					 object:nil
+	];
+}
+
 
 - (void)inappPaymentObserver:(NSNotification *)notification {
 	if ([[notification name] isEqualToString:@"notifyInappPayment"]) {
@@ -122,11 +142,21 @@
 	}
 }
 
-//The event handling method
+- (void)closeImporterObserver:(NSNotification *)notification {
+	if ([[notification name] isEqualToString:@"notifyCloseImporter"]) {
+		UIWindow *window = ([UIApplication sharedApplication].delegate).window;
+		window.rootViewController = self.gameRootViewController;
+
+		[self.view removeFromSuperview];
+	}
+}
+
+// The event handling method
 - (void)handleTap:(UITapGestureRecognizer *)recognizer {
 	[self.appTopViewController dismissKeyboard];
 }
 
+// Handle close event
 - (void) didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 }

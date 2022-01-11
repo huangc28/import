@@ -3,6 +3,8 @@
 #import "src/LineageMLiveImporter.h"
 #import "src/SnailImporter.h"
 
+// TODO
+//   - NSNotificationCenter event name should be extracted to constant.
 %ctor {
 	NSLog(@"DEBUG* import extension started!");
 
