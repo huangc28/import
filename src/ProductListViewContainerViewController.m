@@ -67,7 +67,6 @@
 	self.vbStoreKitManager = [[VBStoreKitManager alloc] init];
 
 	[[SKPaymentQueue defaultQueue] addTransactionObserver:self.vbStoreKitManager];
-
 }
 
 // Register event to perform in app purchase in importer app
@@ -80,17 +79,6 @@
 					 object:nil
 	];
 }
-
-// Register event to close importer APP.
-//- (void)registerCloseImporterEvent {
-	//[
-		//[NSNotificationCenter defaultCenter]
-			//addObserver:self
-				 //selector:@selector(closeImporterObserver:)
-						 //name:@"notifyCloseImporter"
-					 //object:nil
-	//];
-//}
 
 - (void)registerTogglePurchasedRecordsViewEvent {
 	[
@@ -129,15 +117,6 @@
 		[[SKPaymentQueue defaultQueue] addPayment:payment];
 	}
 }
-
-//- (void)closeImporterObserver:(NSNotification *)notification {
-	//if ([[notification name] isEqualToString:@"notifyCloseImporter"]) {
-		//UIWindow *window = ([UIApplication sharedApplication].delegate).window;
-		//window.rootViewController = self.gameRootViewController;
-
-		//[self.view removeFromSuperview];
-	//}
-//}
 
 - (void)togglePurchasedRecordsViewObserver:(NSNotification *)notification {
 	NSLog(@"DEBUG* togglePurchasedRecordsViewObserver");
