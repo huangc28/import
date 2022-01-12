@@ -125,6 +125,15 @@
 }
 
 - (void)handlePurchaseRecord:(UIButton *)sender {
+	// We should toggle view from product list to purchased record view.
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[
+			[NSNotificationCenter defaultCenter]
+				postNotificationName:@"notifyTogglePurchasedRecordsView"
+											object:nil
+										userInfo:nil
+		];
+	});
 }
 
 - (void)handleUploadFailedList:(UIButton *)sender {

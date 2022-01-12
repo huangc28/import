@@ -10,11 +10,21 @@
 #import "ProductListViewController.h"
 #import "AppBottomViewController.h"
 #import "AuthModel.h"
+#import "Routes.h"
 
 @interface AppViewController ()<UIGestureRecognizerDelegate>
 @end
 
 @implementation AppViewController
+
+- (id) init {
+	self = [super init];
+
+	self.routes = [Routes sharedInstance];
+
+	return self;
+}
+
 
 - (void) viewDidLoad {
 	[super viewDidLoad];
@@ -62,6 +72,7 @@
 
 	[self registerInappPaymentEvent];
 	[self registerCloseImporterEvent];
+	[self registerTogglePurchasedRecordsViewEvent];
 
 	// Assign a payment observer so we can store item transaction info.
 	self.vbStoreKitManager = [[VBStoreKitManager alloc] init];
@@ -71,8 +82,7 @@
 }
 
 - (void) renderImportApp:(UIApplication *)app {
-	UIWindow *window = ([UIApplication sharedApplication].delegate).window ;
-
+	UIWindow *window = ([UIApplication sharedApplication].delegate).window;
 	// We need to store the original app view controller reference inorder
 	// to restore game UI after closing importer app.
 	self.gameRootViewController = window.rootViewController;
@@ -114,6 +124,16 @@
 	];
 }
 
+- (void)registerTogglePurchasedRecordsViewEvent {
+	[
+		[NSNotificationCenter defaultCenter]
+			addObserver:self
+				 selector:@selector(togglePurchasedRecordsViewObserver:)
+						 name:@"notifyTogglePurchasedRecordsView"
+					 object:nil
+	];
+}
+
 
 - (void)inappPaymentObserver:(NSNotification *)notification {
 	if ([[notification name] isEqualToString:@"notifyInappPayment"]) {
@@ -149,6 +169,10 @@
 
 		[self.view removeFromSuperview];
 	}
+}
+
+- (void)togglePurchasedRecordsViewObserver:(NSNotification *)notification {
+	NSLog(@"DEBUG* togglePurchasedRecordsViewObserver");
 }
 
 // The event handling method
