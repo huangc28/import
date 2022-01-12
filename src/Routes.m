@@ -1,6 +1,6 @@
 #import "Routes.h"
 
-#import "ProductListViewController.h"
+#import "ProductListViewContainerViewController.h"
 
 @implementation Routes
 
@@ -73,8 +73,8 @@ static NSString *uploadFailedList = @"uploadFailedListView";
 	if ([self.routes objectForKey:routeName] == (UIViewController *)[NSNull null]) {
 		id v = [self initRouteUIViewController:routeName];
 
-		if ([v isKindOfClass:[ProductListViewController class]]) {
-			ProductListViewController *prodView = (ProductListViewController *)v;
+		if ([v isKindOfClass:[ProductListViewContainerViewController class]]) {
+			ProductListViewContainerViewController *prodView = v;
 
 			[
 				self.routes
@@ -98,7 +98,7 @@ static NSString *uploadFailedList = @"uploadFailedListView";
 	int viewIdx = [views indexOfObject:routeName];
 	switch (viewIdx) {
 	    case 0: // ProductListViewController
-				 v = [[ProductListViewController alloc] init];
+				 v = [[ProductListViewContainerViewController alloc] init];
 	       break;
 	    case 1:
 	       // Item 3
@@ -106,7 +106,7 @@ static NSString *uploadFailedList = @"uploadFailedListView";
 			case 2:
 				 break;
 	    default:
-				 v = [[ProductListViewController alloc] init];
+				 v = [[ProductListViewContainerViewController alloc] init];
 	       break;
 	}
 
