@@ -4,7 +4,7 @@
 #import "AppTopViewController.h"
 #import "ProductListViewController.h"
 #import "AppBottomViewController.h"
-#import "VBStoreKitManager.h"
+#import "../VBStoreKitManager.h"
 
 @interface ProductListViewContainerViewController : UIViewController {
 	AppTopViewController *_appTopViewController;

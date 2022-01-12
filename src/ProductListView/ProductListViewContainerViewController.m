@@ -5,10 +5,11 @@
 #import "SharedLibraries/Alert.h"
 
 #import "ProductListViewContainerViewController.h"
-#import "Auth/AuthManager.h"
 #import "AppTopViewController.h"
 #import "ProductListViewController.h"
 #import "AppBottomViewController.h"
+
+#import "../Auth/AuthManager.h"
 
 @interface ProductListViewContainerViewController ()<UIGestureRecognizerDelegate>
 @end

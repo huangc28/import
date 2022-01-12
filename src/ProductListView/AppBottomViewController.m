@@ -1,6 +1,6 @@
 #import "AppBottomViewController.h"
 
-#import "Util.h"
+#import "../Util.h"
 
 @implementation AppBottomViewController
 

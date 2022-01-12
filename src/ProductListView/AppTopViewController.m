@@ -6,10 +6,11 @@
 #import "SharedLibraries/SpinnerViewController.h"
 
 #import "AppTopViewController.h"
-#import "AuthModel.h"
-#import "Auth/AuthManager.h"
 
-#include "Util.h"
+#import "../Auth/AuthManager.h"
+#import "../AuthModel.h"
+
+#import "../Util.h"
 
 @interface AppTopViewController ()<UITextFieldDelegate>
 @end

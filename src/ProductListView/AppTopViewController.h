@@ -1,5 +1,6 @@
 #import "UIKit/UIKit.h"
-#import "AuthModel.h"
+
+#import "../AuthModel.h"
 
 @interface AppTopViewController : UIViewController <UITextFieldDelegate> {
 	AuthModel *_authModel;

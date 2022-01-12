@@ -1,10 +1,6 @@
 #import "UIKit/UIKit.h"
+#import "StoreKit/StoreKit.h"
 
-#import "AuthModel.h"
-#import "AppTopViewController.h"
-#import "ProductListViewController.h"
-#import "AppBottomViewController.h"
-#import "VBStoreKitManager.h"
 #import "Routes.h"
 
 @interface AppViewController : UIViewController {
