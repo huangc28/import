@@ -56,8 +56,8 @@
 		[NSNotificationCenter defaultCenter]
 			addObserver:self
 				 selector:@selector(fetchProductsObserver:)
-						 name:@"notifyProductsUpdate"
-					 object:self
+				 name    :@"notifyProductsUpdate"
+				object   :self
 	];
 
 	dispatch_async(dispatch_get_main_queue(), ^{
@@ -75,8 +75,6 @@
 
 - (void) refreshProductsObserver:(NSNotification *)notification {
 	if ([[notification name] isEqualToString:@"notifyRefreshProducts"]) {
-		NSLog(@"DEBUG* refreshProductsObserver");
-
 		NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 		[self fetchInventoryAndReact: bundleIdentifier];
 	}
@@ -166,8 +164,8 @@
 					[
 						[NSNotificationCenter defaultCenter]
 							postNotificationName:@"notifyProductsUpdate"
-														object:self
-													userInfo:nProds
+							object              :self
+							userInfo            :nProds
 					];
 				});
 			}
@@ -214,10 +212,10 @@
 //   prod info 3
 // ]
 - (void) setupProductStackView {
-	self.prodsStackView = [[UIStackView alloc] init];
-	self.prodsStackView.axis = UILayoutConstraintAxisVertical;
-	self.prodsStackView.distribution = UIStackViewDistributionEqualSpacing;
-	self.prodsStackView.spacing = 30;
+  self.prodsStackView = [[UIStackView alloc] init];
+  self.prodsStackView.axis = UILayoutConstraintAxisVertical;
+  self.prodsStackView.distribution = UIStackViewDistributionEqualSpacing;
+  self.prodsStackView.spacing = 30;
   self.prodsStackView.translatesAutoresizingMaskIntoConstraints = NO;
 }
 

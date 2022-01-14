@@ -1,6 +1,7 @@
 #import "Routes.h"
 
 #import "ProductListView/ProductListViewContainerViewController.h"
+#import "PurchasedRecordsView/PurchasedRecordsContainerViewController.h"
 
 @implementation Routes
 
@@ -57,7 +58,8 @@ static NSString *uploadFailedList = @"uploadFailedListView";
 	return self;
 }
 
-- (UIViewController *)GetRouteUIViewController:(NSString *)routeName {
+//- (UIViewController *)GetRouteUIViewController:(NSString *)routeName {
+- (id)GetRouteUIViewController:(NSString *)routeName {
 	// Check if routeName exists.
 	// If route name does not exists raised exception
 	if (!self.routes[routeName]) {
@@ -73,15 +75,11 @@ static NSString *uploadFailedList = @"uploadFailedListView";
 	if ([self.routes objectForKey:routeName] == (UIViewController *)[NSNull null]) {
 		id v = [self initRouteUIViewController:routeName];
 
-		if ([v isKindOfClass:[ProductListViewContainerViewController class]]) {
-			ProductListViewContainerViewController *prodView = v;
-
-			[
-				self.routes
-					setObject:prodView
-					forKey   :routeName
-			];
-		}
+		[
+			self.routes
+				setObject:v
+				forKey   :routeName
+		];
 	}
 
 	return [self.routes objectForKey:routeName];
@@ -97,11 +95,15 @@ static NSString *uploadFailedList = @"uploadFailedListView";
 
 	int viewIdx = [views indexOfObject:routeName];
 	switch (viewIdx) {
-	    case 0: // ProductListViewController
+			// ProductListViewContainerViewController
+	    case 0:
 				 v = [[ProductListViewContainerViewController alloc] init];
 	       break;
+
+			// PurchasedRecordsContainerViewController
 	    case 1:
-	       // Item 3
+				 v = [[PurchasedRecordsContainerViewController alloc] init];
+
 	       break;
 			case 2:
 				 break;

@@ -1,6 +1,7 @@
 #import "AppBottomViewController.h"
 
 #import "../Util.h"
+#import "../Routes.h"
 
 @implementation AppBottomViewController
 
@@ -33,7 +34,7 @@
 	[
 		purchaseRecordButton
 			addTarget: self
-				 action: @selector(handlePurchaseRecord:)
+				 action: @selector(handleRedirectToPurchaseRecord:)
 				forControlEvents:UIControlEventTouchUpInside
 	];
 
@@ -124,14 +125,19 @@
 	});
 }
 
-- (void)handlePurchaseRecord:(UIButton *)sender {
+- (void)handleRedirectToPurchaseRecord:(UIButton *)sender {
 	// We should toggle view from product list to purchased record view.
 	dispatch_async(dispatch_get_main_queue(), ^{
+		NSDictionary *routeName = [
+			NSDictionary dictionaryWithObject:Routes.purchasedRecordsView
+			forKey:@"routeName"
+		];
+
 		[
 			[NSNotificationCenter defaultCenter]
-				postNotificationName:@"notifyTogglePurchasedRecordsView"
+				postNotificationName:@"notifyRouteChange"
 											object:nil
-										userInfo:nil
+										userInfo:routeName
 		];
 	});
 }

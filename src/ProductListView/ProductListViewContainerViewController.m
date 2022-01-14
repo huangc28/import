@@ -61,8 +61,6 @@
 	[self.view addSubview:self.appBottomViewController.view];
 
 	[self registerInappPaymentEvent];
-	//[self registerCloseImporterEvent];
-	[self registerTogglePurchasedRecordsViewEvent];
 
 	// Assign a payment observer so we can store item transaction info.
 	self.vbStoreKitManager = [[VBStoreKitManager alloc] init];
@@ -80,17 +78,6 @@
 					 object:nil
 	];
 }
-
-- (void)registerTogglePurchasedRecordsViewEvent {
-	[
-		[NSNotificationCenter defaultCenter]
-			addObserver:self
-				 selector:@selector(togglePurchasedRecordsViewObserver:)
-						 name:@"notifyTogglePurchasedRecordsView"
-					 object:nil
-	];
-}
-
 
 - (void)inappPaymentObserver:(NSNotification *)notification {
 	if ([[notification name] isEqualToString:@"notifyInappPayment"]) {

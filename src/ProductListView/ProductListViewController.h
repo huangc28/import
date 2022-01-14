@@ -15,6 +15,4 @@
 
 @property(retain, nonatomic) UIView *contentView; //@synthesize contentView=_contentView
 
-
-
 @end

@@ -37,11 +37,15 @@
 	appView.userInteractionEnabled = YES;
 	appView.backgroundColor = [UIColor whiteColor];
 
-	// Retrieve UIViewController from routes.
-	UIViewController *vctrl = [self.routes GetRouteUIViewController:Routes.productListView];
+	[self registerRouteChangeEvent];
 
-	[self addChildViewController: vctrl];
-	[self.view addSubview: vctrl.view];
+	// Retrieve UIViewController from routes.
+	[self changeRoute:Routes.productListView];
+	//self.currentRouteViewController = [self.routes GetRouteUIViewController:Routes.productListView];
+
+	//[self addChildViewController: self.currentRouteViewController];
+	//[self.view addSubview: self.currentRouteViewController.view];
+	//[self.currentRouteViewController didMoveToParentViewController:self];
 }
 
 - (void) renderImportApp:(UIApplication *)app {
@@ -80,6 +84,51 @@
 		window.rootViewController = self.gameRootViewController;
 
 		[self.view removeFromSuperview];
+	}
+}
+
+- (void)registerRouteChangeEvent {
+	[
+		[NSNotificationCenter defaultCenter]
+			addObserver:self
+				 selector:@selector(routeChangeObserver:)
+						 name:@"notifyRouteChange"
+					 object:nil
+	];
+}
+
+- (void)routeChangeObserver:(NSNotification *)notification {
+	if ([[notification name] isEqualToString:@"notifyRouteChange"]) {
+		NSDictionary *userInfo = notification.userInfo;
+		NSString *routeName = [userInfo objectForKey:@"routeName"];
+
+		NSLog(@"DEBUG* routeName %@", routeName);
+
+		[self changeRoute:routeName];
+	}
+}
+
+- (void)changeRoute:(NSString *)routeName {
+	@try {
+	  UIViewController *nextViewController = [
+	  	self.routes GetRouteUIViewController:routeName
+	  ];
+
+	  // Remove current view controller from parent view controller
+	  if (self.currentRouteViewController != nil) {
+	  	[self.currentRouteViewController willMoveToParentViewController:nil];
+	  	[self.currentRouteViewController.view removeFromSuperview];
+	  	[self.currentRouteViewController removeFromParentViewController];
+	  }
+
+	  // Assign current view
+	  self.currentRouteViewController = nextViewController;
+
+	  [self addChildViewController:self.currentRouteViewController];
+	  [self.view addSubview:self.currentRouteViewController.view];
+	  [self.currentRouteViewController didMoveToParentViewController:self];
+	} @catch (NSException *exception) {
+	  NSLog(@"DEBUG* changeRoute exception %@", exception);
 	}
 }
 
