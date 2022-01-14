@@ -46,7 +46,7 @@
 	// Create username text field
 	UITextField *utf = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 150, 50)];
 
-  utf.backgroundColor = [UIColor whiteColor];
+	utf.backgroundColor = [UIColor whiteColor];
 	utf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"用戶名"];
 	[
 		utf
@@ -59,7 +59,7 @@
 
 	// Create password text field
 	UITextField *ptf = [[UITextField alloc] initWithFrame:CGRectMake(180, 10, 150, 50)];
-  ptf.backgroundColor = [UIColor whiteColor];
+	ptf.backgroundColor = [UIColor whiteColor];
 	ptf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密碼"];
 	[
 		ptf

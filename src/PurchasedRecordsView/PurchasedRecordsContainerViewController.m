@@ -1,31 +1,35 @@
 #import "SharedLibraries/HttpUtil.h"
 
 #import "PurchasedRecordsContainerViewController.h"
+#import "TopBarViewController.h"
 #import "PurchasedRecordsListViewController.h"
 #import "PurchasedRecordModel.h"
 
 @implementation PurchasedRecordsContainerViewController
-
 - (void) viewDidLoad {
-  [super viewDidLoad];
+	[super viewDidLoad];
 
-  self.view = [
-  	[UIView alloc] initWithFrame: CGRectMake(
-  		0,
-  		0,
-  		[[UIScreen mainScreen] applicationFrame].size.width,
-  		[[UIScreen mainScreen] applicationFrame].size.height
-  	)
-  ];
+	self.view = [
+		[UIView alloc] initWithFrame: CGRectMake(
+			0,
+			0,
+			[[UIScreen mainScreen] applicationFrame].size.width,
+			[[UIScreen mainScreen] applicationFrame].size.height
+		)
+	];
 
-  self.view.userInteractionEnabled = YES;
-  self.view.backgroundColor = [UIColor whiteColor];
+	self.view.userInteractionEnabled = YES;
+	self.view.backgroundColor = [UIColor whiteColor];
 
-  NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-  [self fetchPurchasedRecordsAndReact:bundleIdentifier];
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+	[self fetchPurchasedRecordsAndReact:bundleIdentifier];
 
-  self.purchaseRecordsListViewController = [[PurchasedRecordsListViewController alloc] init];
-  [self.view addSubview:self.purchaseRecordsListViewController.view];
+	self.topBarViewController = [[TopBarViewController alloc] init];
+	[self addChildViewController:self.topBarViewController];
+	[self.view addSubview:self.topBarViewController.view];
+
+	self.purchaseRecordsListViewController = [[PurchasedRecordsListViewController alloc] init];
+	[self.view addSubview:self.purchaseRecordsListViewController.view];
 }
 
 - (void)fetchPurchasedRecordsAndReact:(NSString*)bundleID {

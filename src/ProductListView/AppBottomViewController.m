@@ -58,7 +58,6 @@
 	];
 
 
-	// Create close button
 	UIStackView *bottomBarContent = [self createBottomBar];
 	[self.view addSubview:bottomBarContent];
 	[self configureBottomBarContent:bottomBarContent];
@@ -85,7 +84,6 @@
 - (UIStackView *)createBottomBar {
 	UIStackView *bottomBarContent = [[UIStackView alloc] init];
 	bottomBarContent.axis = UILayoutConstraintAxisHorizontal;
-
 	bottomBarContent.distribution = UIStackViewDistributionFillEqually;
 	bottomBarContent.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -93,7 +91,7 @@
 }
 
 // TODO there should be border in between each button.
-- (UIButton *)createButton:(NSString* )title {
+- (UIButton *)createButton:(NSString*)title {
 	UIButton *but = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 
 

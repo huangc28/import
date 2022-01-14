@@ -1,4 +1,3 @@
-#import "Foundation/Foundation.h"
 #import "PurchasedRecordViewController.h"
 
 @interface PurchasedRecordViewController : UIViewController {
