@@ -71,7 +71,10 @@
 						  }
 
 						  self.purchaseRecordsListViewController.purchaseRecords = purchasedRecordModels;
-						  [self.purchaseRecordsListViewController render];
+
+						  dispatch_async(dispatch_get_main_queue(), ^{
+						    [self.purchaseRecordsListViewController render];
+						  });
 						}
 					} @catch (NSException *exception){
 						NSLog(@"DEBUG* fetchPurchasedRecordsAndReact exception %@", exception);

@@ -52,6 +52,8 @@
 
 // TODO remove gesture recognizer.
 - (void) dealloc {
+  self.data = nil;
+  self.prodView = nil;
 }
 
 - (UIStackView *) createProdRow {

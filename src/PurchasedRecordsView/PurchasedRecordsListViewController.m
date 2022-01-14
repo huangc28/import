@@ -1,5 +1,6 @@
-#import "PurchasedRecordsListViewController.h"
 #import "PurchasedRecordModel.h"
+#import "PurchasedRecordsListViewController.h"
+#import "PurchasedRecordViewController.h"
 
 @interface PurchasedRecordsListViewController()
 @end
@@ -80,8 +81,12 @@
   		makeObjectsPerformSelector: @selector(removeFromSuperview)
   ];
 
-  for (PurchasedRecordModel* purchaseRecords in self.purchaseRecords) {
-    NSLog(@"DEBUG* render purchaseRecords %@", purchaseRecords);
+  for (PurchasedRecordModel* purchaseRecord in self.purchaseRecords) {
+	PurchasedRecordViewController *prViewCtrl = [
+		[PurchasedRecordViewController alloc]initWithData:purchaseRecord];
+
+	[self.purchasedRecordStackView addArrangedSubview:prViewCtrl.view];
+	[self addChildViewController:prViewCtrl];
   }
 }
 
