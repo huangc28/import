@@ -63,7 +63,6 @@
 	UIButton *but = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 
 	but.contentEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2);
-	//[but setFrame: CGRectMake(0, 10, 50, 50)];
 	[but setTitle:title forState: UIControlStateNormal];
 	[
 		but
