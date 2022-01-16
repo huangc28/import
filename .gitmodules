@@ -1,0 +1,3 @@
+[submodule "uncle-tuu-import-core"]
+	path = uncle-tuu-import-core
+	url = git@github.com:huangc28/uncle-tuu-import-core.git
