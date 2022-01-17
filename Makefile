@@ -8,6 +8,8 @@ TWEAK_NAME = import
 
 import_FRAMEWORKS = StoreKit UIKit
 import_FILES = $(wildcard ./src/*.xm) $\
+	$(wildcard ./UncleTuuImportCore/*.m) $\
+	$(wildcard ./UncleTuuImportCore/**/*.m) $\
 	$(wildcard ./src/*.m) $\
 	$(wildcard ./src/**/*.m) $\
 	$(wildcard ../SharedLibraries/*.m) $\

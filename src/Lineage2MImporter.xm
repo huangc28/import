@@ -1,7 +1,8 @@
 #import "StoreKit/StoreKit.h"
 #import "UIKit/UIKit.h"
 
-#import "AppViewController.h"
+/*#import "AppViewController.h"*/
+#import "../UncleTuuImportCore/AppViewController.h"
 
 %group Lineage2MImporter
 

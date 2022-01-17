@@ -1,6 +1,7 @@
 #import "UIKit/UIKit.h"
 
-#import "AppViewController.h"
+/*#import "AppViewController.h"*/
+#import "../UncleTuuImportCore/AppViewController.h"
 
 %group ArknightsImporter
 
