@@ -1,4 +1,3 @@
-/*#import "AppViewController.h"*/
 #import "../UncleTuuImportCore/AppViewController.h"
 
 %group LineageMLiveImporter
