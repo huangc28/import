@@ -6,7 +6,7 @@
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
 %ctor {
-	NSLog(@"DEBUG* import extension started!");
+	NSLog(@"DEBUG* import extension started");
 
 	// 天堂 2 M
 	InitLineage2MImporter();

@@ -5,7 +5,6 @@
 
 %group Lineage2MImporter
 
-// 天堂 2 m
 %hook AppleInAppPurchaseManager
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
