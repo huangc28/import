@@ -14,6 +14,29 @@
 	return %orig;
 }
 %end
+
+%hook APMAnalytics
++ (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
+	NSLog(@"DEBUG* APMAnalytics staic paymentQueue intercepted");
+}
+
+- (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
+	NSLog(@"DEBUG* APMAnalytics paymentQueue intercepted");
+}
+%end
+
+%hook BTPayment
+- (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
+	NSLog(@"DEBUG* BTPayment paymentQueue intercepted");
+}
+%end
+
+%hook FBSDKPaymentObserver
+- (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
+	NSLog(@"DEBUG* FBSDKPaymentObserver paymentQueue intercepted");
+}
+%end
+
 %end
 
 extern "C" void InitMbmtwImporter() {
