@@ -2,6 +2,7 @@
 #import "src/ArknightsImporter.h"
 #import "src/LineageMLiveImporter.h"
 #import "src/SnailImporter.h"
+#import "src/Mbmtw.h"
 
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
@@ -19,4 +20,7 @@
 
 	// 最強蝸牛
 	InitSnailImporter();
+
+	// 天涯明月刀
+	InitMbmtwImporter();
 }
