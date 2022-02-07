@@ -4,6 +4,7 @@
 #import "src/SnailImporter.h"
 #import "src/Mbmtw.h"
 #import "src/HarryPotterImporter.h"
+#import "src/Maplestory.h"
 
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
@@ -27,4 +28,7 @@
 
 	// 哈利波特
 	InitHarryPotterImporter();
+
+	// 楓之谷: R
+	InitMaplestoryImporter();
 }
