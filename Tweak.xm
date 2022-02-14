@@ -5,6 +5,7 @@
 #import "src/Mbmtw.h"
 #import "src/HarryPotterImporter.h"
 #import "src/Maplestory.h"
+#import "src/CrownImporter.h"
 
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
@@ -31,4 +32,7 @@
 
 	// 楓之谷: R
 	InitMaplestoryImporter();
+
+	// 放置英雄
+	InitCrownImporter();
 }
