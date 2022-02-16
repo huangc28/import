@@ -5,7 +5,7 @@ INSTALL_TARGET_PROCESSES = SpringBoard
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = import
-
+import_EXTRA_FRAMEWORKS = UnityFramework_twysios
 import_FRAMEWORKS = StoreKit UIKit
 import_FILES = $(wildcard ./src/*.xm) $\
 	$(wildcard ./UncleTuuImportCore/*.m) $\

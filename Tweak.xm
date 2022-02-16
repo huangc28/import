@@ -6,6 +6,7 @@
 #import "src/HarryPotterImporter.h"
 #import "src/Maplestory.h"
 #import "src/CrownImporter.h"
+#import "src/TwysiosImporter.h"
 
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
@@ -35,4 +36,7 @@
 
 	// 放置英雄
 	InitCrownImporter();
+
+	// 伊蘇 6
+	InitTwysiosImporter();
 }
