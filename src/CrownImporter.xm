@@ -33,8 +33,6 @@
 	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 
 	if ([bundleIdentifier isEqualToString:Crown]) {
-		NSLog(@"DEBUG* UnityAppController application");
-
 		static dispatch_once_t once;
 
 		dispatch_once(&once, ^{

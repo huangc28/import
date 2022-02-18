@@ -9,3 +9,4 @@ extern NSString * const Crown;
 extern NSString * const Twysios;
 extern NSString * const TDJ;
 extern NSString * const MapleStory;
+extern NSString * const Mighttc;

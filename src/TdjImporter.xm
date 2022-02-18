@@ -10,22 +10,16 @@
 %hook APMAnalytics
 + (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
 	NSLog(@"DEBUG* TDJ APMAnalytics static paymentQueue intercepted");
-
-	// %orig;
 }
 
 - (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
 	NSLog(@"DEBUG* TDJ APMAnalytics paymentQueue intercepted");
-
-	// %orig;
 }
 %end
 
 %hook FBSDKPaymentObserver
 - (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
 	NSLog(@"DEBUG* TDJ FBSDKPaymentObserver paymentQueue intercepted");
-
-	// %orig;
 }
 %end
 

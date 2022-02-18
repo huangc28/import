@@ -10,3 +10,4 @@ NSString * const Crown = @"com.woobest.crown.igat";
 NSString * const MapleStory = @"com.rastargaes.maplestory";
 NSString * const Twysios = @"com.mover.twysios";
 NSString * const TDJ = @"com.gamebeans.tdj";
+NSString * const Mighttc = @"jp.co.koeitecmo.a-mighttc";
