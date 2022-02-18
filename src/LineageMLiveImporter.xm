@@ -1,11 +1,12 @@
 #import "../UncleTuuImportCore/AppViewController.h"
+#import "GameBundleIDs.h"
 
 %group LineageMLiveImporter
 
 %hook FBSDKPaymentObserver
 
 - (void)paymentQueue:(SKPaymentQueue *)arg1 updatedTransactions:(NSArray *)arg2 {
-	NSLog(@"DEBUG* FBSDKPaymentObserver paymentQueue paralyzed");
+	NSLog(@"DEBUG* LineageM FBSDKPaymentObserver paymentQueue paralyzed");
 }
 
 %end

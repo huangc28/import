@@ -6,7 +6,8 @@
 #import "src/HarryPotterImporter.h"
 #import "src/Maplestory.h"
 #import "src/CrownImporter.h"
-#import "src/TwysiosImporter.h"
+// #import "src/TwysiosImporter.h"
+#import "src/TdjImporter.h"
 
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
@@ -14,29 +15,32 @@
 	NSLog(@"DEBUG* import extension started");
 
 	// 天堂 2 M
-	InitLineage2MImporter();
+	//InitLineage2MImporter();
 
-	// 明日方舟
-	InitArknightsImporter();
+	//// 明日方舟
+	//InitArknightsImporter();
 
-	// 天堂 M
-	InitLineageMLiveImporter();
+	//// 天堂 M
+	//InitLineageMLiveImporter();
 
-	// 最強蝸牛
-	InitSnailImporter();
+	//// 最強蝸牛
+	//InitSnailImporter();
 
 	// 天涯明月刀
-	InitMbmtwImporter();
+	// InitMbmtwImporter();
 
 	// 哈利波特
-	InitHarryPotterImporter();
+	// InitHarryPotterImporter();
 
 	// 楓之谷: R
-	InitMaplestoryImporter();
+	// InitMaplestoryImporter();
 
 	// 放置英雄
-	InitCrownImporter();
+	// InitCrownImporter();
 
 	// 伊蘇 6
-	InitTwysiosImporter();
+	// InitTwysiosImporter();
+
+	// 天地劫
+	InitTdjImporter();
 }

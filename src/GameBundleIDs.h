@@ -7,3 +7,5 @@ extern NSString * const HarryPotter;
 extern NSString * const Mbtw;
 extern NSString * const Crown;
 extern NSString * const Twysios;
+extern NSString * const TDJ;
+extern NSString * const MapleStory;

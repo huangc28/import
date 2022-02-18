@@ -1,6 +1,7 @@
 #import "UIKit/UIKit.h"
 
 #import "../UncleTuuImportCore/AppViewController.h"
+#import "GameBundleIDs.h"
 
 %group MaplestoryImporter
 
@@ -10,7 +11,7 @@
 }
 
 - (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
-	NSLog(@"DEBUG* APMAnalytics paymentQueue intercepted");
+	NSLog(@"DEBUG* maplestory FBSDKPaymentObserver paymentQueue paralyzed");
 }
 %end
 
