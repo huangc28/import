@@ -6,7 +6,6 @@
 #import "src/HarryPotterImporter.h"
 #import "src/Maplestory.h"
 #import "src/CrownImporter.h"
-// #import "src/TwysiosImporter.h"
 #import "src/TdjImporter.h"
 #import "src/MighttcImporter.h"
 
@@ -38,9 +37,6 @@
 
 	// 放置英雄
 	InitCrownImporter();
-
-	// 伊蘇 6
-	// InitTwysiosImporter();
 
 	// 天地劫
 	InitTdjImporter();
