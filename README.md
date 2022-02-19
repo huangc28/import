@@ -4,6 +4,10 @@
 - 天地劫
 - 三國志 霸道
 
+## Unsupported Games
+
+- ROX (目前 IOS 無法使用 IAP)
+
 ## TODO
 
 - [x] Extract importer core logic to independent repo. other import extension might need to use this part of logic too.
