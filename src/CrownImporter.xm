@@ -10,8 +10,6 @@
 
 - (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
 	NSLog(@"DEBUG* Crown APMAnalytics paymentQueue paralyzed");
-
-	%orig;
 }
 %end
 

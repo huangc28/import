@@ -7,14 +7,10 @@
 %hook APMAnalytics
 + (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
 	NSLog(@"DEBUG* Mighttc APMAnalytics staic paymentQueue intercepted");
-
-	// %orig;
 }
 
 - (void)paymentQueue:(id)arg1 updatedTransactions:(id)arg2 {
 	NSLog(@"DEBUG* Mighttc APMAnalytics paymentQueue intercepted");
-
-	// %orig;
 }
 %end
 

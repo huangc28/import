@@ -2,6 +2,7 @@
 #import "UIKit/UIKit.h"
 
 #import "../UncleTuuImportCore/AppViewController.h"
+#import "GameBundleIDs.h"
 
 %group Lineage2MImporter
 
@@ -26,12 +27,16 @@
 
 %hook IOSAppDelegate
 - (void)applicationDidBecomeActive:(UIApplication *)app {
-	static dispatch_once_t once;
+	NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
 
-	dispatch_once(&once, ^{
-		AppViewController *appViewController = [[AppViewController alloc] init];
-		[appViewController renderImportApp:app];
-	});
+	if ([bundleIdentifier isEqualToString:Lineage2M]) {
+		static dispatch_once_t once;
+
+		dispatch_once(&once, ^{
+			AppViewController *appViewController = [[AppViewController alloc] init];
+			[appViewController renderImportApp:app];
+		});
+	}
 
 	%orig;
 }
