@@ -16,34 +16,34 @@
 	NSLog(@"DEBUG* import extension started");
 
 	// 天堂 2 M
-	InitLineage2MImporter();
+	//InitLineage2MImporter();
 
-	// 明日方舟
-	InitArknightsImporter();
+	//// 明日方舟
+	//InitArknightsImporter();
 
-	// 天堂 M
-	InitLineageMLiveImporter();
+	//// 天堂 M
+	//InitLineageMLiveImporter();
 
-	// 最強蝸牛
-	InitSnailImporter();
+	//// 最強蝸牛
+	//InitSnailImporter();
 
-	// 天涯明月刀
-	InitMbmtwImporter();
+	//// 天涯明月刀
+	//InitMbmtwImporter();
 
-	// 哈利波特
-	InitHarryPotterImporter();
+	//// 哈利波特
+	//InitHarryPotterImporter();
 
-	// 楓之谷: R
-	InitMaplestoryImporter();
+	//// 楓之谷: R
+	//InitMaplestoryImporter();
 
-	// 放置英雄
-	InitCrownImporter();
+	//// 放置英雄
+	//InitCrownImporter();
 
-	// 天地劫
-	InitTdjImporter();
+	//// 天地劫
+	//InitTdjImporter();
 
-	// 三國志 霸道
-	InitMighttcImporter();
+	//// 三國志 霸道
+	//InitMighttcImporter();
 
 	// 二之國
 	InitProjectNImporter();
