@@ -9,6 +9,7 @@
 #import "src/TdjImporter.h"
 #import "src/MighttcImporter.h"
 #import "src/ProjectNImporter.h"
+#import "src/CallMeBigBossImporter.h"
 
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
@@ -46,5 +47,8 @@
 	//InitMighttcImporter();
 
 	// 二之國
-	InitProjectNImporter();
+	// InitProjectNImporter();
+
+	// 叫我大掌櫃
+	InitCallMeBigBossImporter();
 }

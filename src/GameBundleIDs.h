@@ -11,3 +11,4 @@ extern NSString * const TDJ;
 extern NSString * const MapleStory;
 extern NSString * const Mighttc;
 extern NSString * const Ennt;
+extern NSString * const Dzg;

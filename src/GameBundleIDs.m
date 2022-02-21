@@ -12,3 +12,4 @@ NSString * const Twysios = @"com.mover.twysios";
 NSString * const TDJ = @"com.gamebeans.tdj";
 NSString * const Mighttc = @"jp.co.koeitecmo.a-mighttc";
 NSString * const Ennt = @"com.netmarble.ennt";
+NSString * const Dzg = @"com.gm99.dzg.ios";
