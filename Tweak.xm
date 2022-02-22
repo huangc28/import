@@ -6,10 +6,10 @@
 #import "src/HarryPotterImporter.h"
 #import "src/Maplestory.h"
 #import "src/CrownImporter.h"
-#import "src/TdjImporter.h"
-#import "src/MighttcImporter.h"
-#import "src/ProjectNImporter.h"
-#import "src/CallMeBigBossImporter.h"
+//#import "src/TdjImporter.h"
+//#import "src/MighttcImporter.h"
+//#import "src/ProjectNImporter.h"
+//#import "src/CallMeBigBossImporter.h"
 
 // TODO
 //   - NSNotificationCenter event name should be extracted to constant.
@@ -17,38 +17,38 @@
 	NSLog(@"DEBUG* import extension started");
 
 	// 天堂 2 M
-	//InitLineage2MImporter();
+	InitLineage2MImporter();
 
-	//// 明日方舟
-	//InitArknightsImporter();
+	// 明日方舟
+	InitArknightsImporter();
 
-	//// 天堂 M
-	//InitLineageMLiveImporter();
+	// 天堂 M
+	InitLineageMLiveImporter();
 
-	//// 最強蝸牛
-	//InitSnailImporter();
+	// 最強蝸牛
+	InitSnailImporter();
 
-	//// 天涯明月刀
-	//InitMbmtwImporter();
+	// 天涯明月刀
+	InitMbmtwImporter();
 
-	//// 哈利波特
-	//InitHarryPotterImporter();
+	// 哈利波特
+	InitHarryPotterImporter();
 
-	//// 楓之谷: R
-	//InitMaplestoryImporter();
+	// 楓之谷: R
+	InitMaplestoryImporter();
 
-	//// 放置英雄
-	//InitCrownImporter();
+	// 放置英雄
+	InitCrownImporter();
 
-	//// 天地劫
-	//InitTdjImporter();
+	// 天地劫 (Not supprted)
+	// InitTdjImporter();
 
-	//// 三國志 霸道
-	//InitMighttcImporter();
+	// 三國志 霸道 (Not supported)
+	// InitMighttcImporter();
 
-	// 二之國
+	// 二之國 (Not supprted)
 	// InitProjectNImporter();
 
-	// 叫我大掌櫃
-	InitCallMeBigBossImporter();
+	// 叫我大掌櫃 (Not supprted)
+	// InitCallMeBigBossImporter();
 }
