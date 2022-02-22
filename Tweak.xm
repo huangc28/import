@@ -6,6 +6,8 @@
 #import "src/HarryPotterImporter.h"
 #import "src/Maplestory.h"
 #import "src/CrownImporter.h"
+
+// ----- Not supported -----
 //#import "src/TdjImporter.h"
 //#import "src/MighttcImporter.h"
 //#import "src/ProjectNImporter.h"
