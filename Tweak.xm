@@ -1,6 +1,7 @@
 #import "src/Lineage2MImporter.h"
-#import "src/ArknightsImporter.h"
 #import "src/LineageMLiveImporter.h"
+#import "src/LineageWImporter.h"
+#import "src/ArknightsImporter.h"
 #import "src/SnailImporter.h"
 #import "src/Mbmtw.h"
 #import "src/HarryPotterImporter.h"
@@ -8,9 +9,9 @@
 #import "src/CrownImporter.h"
 
 // ----- Not supported -----
-//#import "src/TdjImporter.h"
+#import "src/TdjImporter.h"
 //#import "src/MighttcImporter.h"
-//#import "src/ProjectNImporter.h"
+#import "src/ProjectNImporter.h"
 //#import "src/CallMeBigBossImporter.h"
 
 // TODO
@@ -21,14 +22,17 @@
 	// 天堂 2 M
 	InitLineage2MImporter();
 
-	// 明日方舟
-	InitArknightsImporter();
-
 	// 天堂 M
 	InitLineageMLiveImporter();
 
-	// 最強蝸牛
-	InitSnailImporter();
+	// 天堂 W
+	InitLineageWImporter();
+
+	// 明日方舟
+	InitArknightsImporter();
+
+	// 最強蝸牛 (Not supported)
+	//InitSnailImporter();
 
 	// 天涯明月刀
 	InitMbmtwImporter();

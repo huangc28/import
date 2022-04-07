@@ -8,6 +8,10 @@
 
 - ROX (目前 IOS 無法使用 IAP)
 
+## 天地劫 trial and error
+
+### Trial 1
+
 ## TODO
 
 - [x] Extract importer core logic to independent repo. other import extension might need to use this part of logic too.
